@@ -1,0 +1,97 @@
+' Localizar o cursor do mouse (user32) - dll
+Declare Function GetCursorPos Lib "user32" _
+(lpPoint As POINTAPI) As Long
+' Acessar a função de localização em user32.dll
+Declare Function SetCursorPos Lib "user32" _
+(ByVal x As Long, ByVal y As Long) As Long
+
+Public Declare Sub mouse_event Lib "user32" _
+(ByVal dwFlags As Long, ByVal dx As Long, ByVal dy As Long, ByVal cButtons As Long, ByVal dwExtraInfo As Long)
+'Incluir a variável POINT - API excel
+
+Type POINTAPI
+    X_Pos As Long
+    Y_Pos As Long
+End Type
+
+
+
+'Definição do localizador
+
+Sub Get_Cursor_Pos()
+
+' Dimensão x e y do cursor
+Dim Hold As POINTAPI
+
+' Criar uma localização varíavel base rotina de Progressão crescente/decrescente
+GetCursorPos Hold
+
+' Mostrar as coordenadas se necessário (este não será utilizado)
+MsgBox "X Position is : " & Hold.X_Pos & Chr(10) & _
+"Y Position is : " & Hold.Y_Pos
+End Sub
+
+' Routine to set cursor position
+'Sub Set_Cursor_Pos()
+'' Looping routine that positions the cursor
+'Dim x As Long
+'    For x = 1 To 1480 Step 20
+'    SetCursorPos x, x
+'    Application.Wait DateAdd("s", 1, Now)
+'    Next x
+'End Sub
+
+
+Sub RightClick(x As Integer, y As Integer)
+    'Application.Wait (Now + TimeValue("0:00:02"))
+    SetCursorPos x, y
+    mouse_event MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0
+    mouse_event MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0
+End Sub
+
+
+Sub LeftClick(x As Integer, y As Integer)
+    SetCursorPos x, y
+    mouse_event MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0
+    mouse_event MOUSEEVENTF_LEFTUP, 0, 0, 0, 0
+End Sub
+
+Sub VerificarDados(valor, posicao, tela As String)
+
+        If (CStr(Sheets(2).Range(posicao).Value) <> valor) Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range(Left(posicao, 1) & "1").Value & " da " & tela & vbCrLf & "Valor esperado: " & valor & vbCrLf & "Valor obtido:" & Sheets(2).Range(posicao).Value
+            End
+        End If
+        
+End Sub
+
+
+Sub CopiarDados(x As Integer, y As Integer)
+
+    Application.CutCopyMode = False '--código para tirar a seleção de cópia (ganho na memória da máquina)
+    Call RightClick(x, y)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+End Sub
+
+
+Sub LimparDados()
+    Windows("Teste automatizado.xlsm").Activate
+    Sheets("Dados para verificação").Select
+    Sheets(2).Range("A1:AZ12").Select
+    Selection.ClearContents
+    Selection.NumberFormat = ""
+End Sub
+
+Sub Atualizar(porcentagem As String, atual As String)
+    Windows("Teste automatizado.xlsm").Activate
+    Sheets("Principal").Select
+    
+    Sheets(1).Range("J9").Value = atual
+    Sheets(1).Range("J10").Value = porcentagem & "%"
+End Sub
