@@ -1,0 +1,3285 @@
+Public Const MOUSEEVENTF_LEFTDOWN = &H2
+Public Const MOUSEEVENTF_LEFTUP = &H4
+Public Const MOUSEEVENTF_RIGHTDOWN As Long = &H8
+Public Const MOUSEEVENTF_RIGHTUP As Long = &H10
+
+Private dtmNext As Date
+
+
+
+Sub teste()
+
+    Dim posicao As Integer
+    posicao = Sheets(3).Range("B1").Value
+    
+    Call LimparDados
+
+    If (posicao <= 1) Then
+        Call Atualizar("3,7", "1. Empresa")
+        Call CriarEmpresa
+    End If
+    
+    If (posicao <= 2) Then
+        Call Atualizar("7,4", "2. Parametros")
+        Call Parametrizacao
+    End If
+        
+    If (posicao <= 4) Then
+        Call Atualizar("11,11", "4.1 Cadastrar Usuário")
+        Call CadastrarUsuário
+    End If
+    
+    If (posicao <= 5) Then
+        Call Atualizar("14,81", "4.2 Cadastrar Funcionário")
+        Call CadastrarFuncionario
+    End If
+    
+    If (posicao <= 6) Then
+        Call Atualizar("18,51", "4.3 Cadastrar Município")
+        Call CadastrarMunicipio
+    End If
+    
+    If (posicao <= 7) Then
+        Call Atualizar("22,22", "4.4 Conta Movimento")
+        Call CadastrarContaMovimento
+    End If
+    
+    If (posicao <= 8) Then
+        Call Atualizar("25,92", "Cadastros Gerais")
+        Call CadastrarClassificacao
+        Call CadastrarMarca
+        Call CadastrarGrupo
+        Call CadastrarSubGrupo
+        Call CadastrarUnidade
+        Call CadastrarFormaPagamento
+    End If
+
+    If (posicao <= 9) Then
+        Call Atualizar("29,62", "4.5.1 Cadastrar Pessoa 1")
+        Call CadastrarPessoa(0, "34101057605", 1, 38800000, 3162104, 1, 1, "", "#pessoa1") 'tipo, documento, tipoIE, CEP, municipio, cliente, fornecedor, IE, nome
+    End If
+    
+    If (posicao <= 10) Then
+        Call Atualizar("33,33", "4.5.2 Cadastrar Pessoa 2")
+        Call CadastrarPessoa(1, "04140757000131", 0, 75500000, 5200050, 1, 0, "107732041", "#pessoa2") 'tipo, documento, tipoIE, CEP, municipio, cliente, fornecedor, IE, nome
+    End If
+    
+    If (posicao <= 11) Then
+        Call Atualizar("37,03", "4.5.3 Cadastrar Pessoa 3")
+        Call CadastrarPessoa(2, "57876780016", 1, "00000000", 5300109, 1, 1, "", "#pessoa3")        'tipo, documento, tipoIE, CEP, municipio, cliente, fornecedor, IE, nome
+    End If
+    
+    If (posicao <= 12) Then
+        Call Atualizar("40,74", "4.5.4 Cadastrar Pessoa 4")
+        Call CadastrarPessoa(1, "02110065000115", 1, 38800000, 3162104, 0, 1, "", "#pessoa4") 'tipo, documento, tipoIE, CEP, municipio, cliente, fornecedor, IE, nome
+    End If
+
+    If (posicao <= 13) Then
+        Call Atualizar("44,44", "4.6.1 Cadastrar Produto 1")
+        Call CadastrarProduto(1, 0, 103, 21, "1000000000016", "#produto1", "3", "92079010") 'unidade, estoque, CST, AliqICMS, barras, nome, venda, NCM
+    End If
+    
+    If (posicao <= 14) Then
+        Call Atualizar("48,14", "4.6.2 Cadastrar Produto 2")
+        Call CadastrarProduto(2, 0, 900, 2, "1000000000023", "#produto2", "20", "92079010") 'unidade, estoque, CST, AliqICMS, barras, nome, venda, NCM
+    End If
+    
+    If (posicao <= 15) Then
+        Call Atualizar("51,85", "4.6.3 Cadastrar Produto 3")
+        Call CadastrarProduto(1, 2, 900, 2, "1000000000030", "#produto3", "30", "92079010") 'unidade, estoque, CST, AliqICMS, barras, nome, venda, NCM
+    End If
+    
+    If (posicao <= 16) Then
+        Call Atualizar("55,55", "4.7 Serviço")
+        Call CadastrarGrupoServico
+        Call CadastrarServiço(1, "#serviço1", "150") 'unidade, descrição, preço
+    End If
+    
+    If (posicao <= 18) Then
+        Call Atualizar("59,25", "5.1.1 Entrada Compra 1")
+        Call EntradaCompra1
+    End If
+    
+    If (posicao <= 19) Then
+        Call Atualizar("62,96", "5.1.2 Entrada Compra 2")
+        Call EntradaCompra2
+    End If
+    
+    If (posicao <= 20) Then
+        Call Atualizar("66,66", "5.1.3 Entrada Compra 3")
+        Call EntradaCompra3
+    End If
+    
+    If (posicao <= 21) Then
+        Call Atualizar("70,37", "5.1.4 Entrada Compra 4")
+        Call EntradaCompra4
+        Call VerificacaoDados1
+    End If
+
+    If (posicao <= 22) Then
+        Call Atualizar("74,07", "5.2.1 DAV 1")
+        Call DAV1
+    End If
+    
+    If (posicao <= 23) Then
+        Call Atualizar("77,77", "5.2.2 DAV 2")
+        Call DAV2
+        Call VerificacaoDados2
+    End If
+
+    If (posicao <= 24) Then
+        Call Atualizar("81,48", "5.3 Orçamento")
+        Call Orcamento
+    End If
+    
+    If (posicao <= 25) Then
+        Call Atualizar("85,18", "5.4 Condicional")
+        Call Condicional
+    End If
+    
+    If (posicao <= 26) Then
+        Call Atualizar("88,88", "7.1 Lançamentos Avulsos CR")
+        Call LancamentoCR
+    End If
+    
+    If (posicao <= 27) Then
+        Call Atualizar("92,59", "7.3 Lançamentos Avulsos CP")
+        Call LancamentoCP
+    End If
+    
+    If (posicao <= 28) Then
+        Call Atualizar("96,29", "7.5 Lançamentos Avulsos MF")
+        Call MovimentoFinanceiro
+    End If
+    
+    If (posicao <= 29) Then
+        Call Atualizar("98,59", "8 Financeiro")
+        Call RecebimentoPagamento
+    End If
+    
+    
+    Call LimparDados 'Fim da verificação
+    
+    Call Atualizar("100", "Finalizado")
+    
+    'Call AlterarPessoa
+    SendKeys ("{NUMLOCK}")
+    MsgBox "Processo encerrado"
+End Sub
+
+
+Sub CriarEmpresa()
+   'Criando o campo "Empresa"
+        Call LeftClick(665, 335)
+        SendKeys "{ENTER}"
+        SendKeys "{F2}" 'criando nova pessoa (empresa)
+        SendKeys "{DOWN}"
+        SendKeys "{ENTER}" 'selecionando juridica
+        SendKeys "04248801000121"
+        SendKeys "{ENTER}" 'informando o cnpj
+        SendKeys "{UP}"
+        SendKeys "{ENTER}" 'informando se é contribuinte
+        SendKeys "002.149.581/0097"
+        SendKeys "{ENTER}"
+        SendKeys "#empresa1"
+        SendKeys "{ENTER 2}"
+        SendKeys "{ENTER}" 'abrindo a tela de logradouro
+        SendKeys "{F2}"
+        Application.Wait (Now + TimeValue("0:00:01"))
+        SendKeys "4"
+        SendKeys "{ENTER}"
+        SendKeys "Rui Barbosa"
+        SendKeys "{ENTER 2}"
+        Application.Wait (Now + TimeValue("0:00:03"))
+        Call LeftClick(842, 338) 'selecionando o logradouro criado
+        SendKeys "{F5}"
+        SendKeys "{ENTER 3}"
+        SendKeys "{F2}" 'Abrindo a tela de bairro
+        Application.Wait (Now + TimeValue("0:00:01"))
+        Call LeftClick(665, 335)
+        SendKeys "Centro"
+        SendKeys "{ENTER 2}"
+        Application.Wait (Now + TimeValue("0:00:03"))
+        Call LeftClick(842, 338) 'selecionando o bairro criado
+        SendKeys "38800000" 'Informando o CEP
+        SendKeys "{ENTER}"
+        SendKeys "{ENTER}"
+        SendKeys "3162104" 'informando o município SG
+        Call LeftClick(600, 756)
+        Application.Wait (Now + TimeValue("0:00:03"))
+        Call LeftClick(842, 338) 'Selecionando a pessoa da empresa
+ 'Fim do campo "Empresa"
+    SendKeys "{DOWN}"
+    SendKeys "{ENTER}" 'selecionando o campo Perfil do Informante
+    
+    'criando o campo "Responsável Legal"
+        Call LeftClick(914, 453)
+        Call LeftClick(914, 453)
+        SendKeys "{F2}" 'criando nova pessoa (Perfil)
+        SendKeys "{ENTER}"
+        SendKeys "62688825631" 'cpf da pessoa
+        SendKeys "{ENTER 3}"
+        SendKeys "#pessoaResponsável" 'nome da pessoa
+        SendKeys "{ENTER 2}"
+        SendKeys "1" 'informando o logradouro
+        SendKeys "{ENTER 3}"
+        SendKeys "1" 'informando o bairro
+        SendKeys "{ENTER}"
+        SendKeys "38800000" 'informando o CEP
+        SendKeys "{ENTER 2}"
+        SendKeys "3162104" 'informando o município SG
+        Call LeftClick(600, 756)
+        Application.Wait (Now + TimeValue("0:00:03"))
+        SendKeys "{DOWN}"
+        Call LeftClick(842, 338) 'Selecionando a pessoa responsável
+    'fim da criação da pessoa responsável
+    
+    Call LeftClick(662, 717)
+    Call LeftClick(662, 717) 'Salvando a empresa
+    Application.Wait (Now + TimeValue("0:00:04"))
+    
+    Call LeftClick(842, 338) 'selecionando a empresa criado
+    Application.Wait (Now + TimeValue("0:00:15"))
+
+End Sub
+
+
+
+Sub Parametrizacao()
+
+    'acessando a tela de parametros gerais
+    Call LeftClick(778, 66)
+    Call LeftClick(101, 115)
+    Call LeftClick(173, 215)
+    'fim de acessar a tela de parametros
+    
+    
+    'Guia Principal
+    Call LeftClick(782, 379)
+    SendKeys "{DOWN 2}"
+    SendKeys "{ENTER}"
+    SendKeys "{DOWN}"
+    SendKeys "{ENTER}"
+    SendKeys "{DOWN}"
+    SendKeys "{ENTER}"
+    SendKeys "{DOWN 3}"
+    SendKeys "{ENTER}"
+    'Fim da Guia Principal
+    
+    
+    'Guia Compras
+    Call LeftClick(614, 286)
+    Call LeftClick(614, 286)
+    Call LeftClick(777, 292)
+    SendKeys "{DOWN}"
+    SendKeys "{ENTER}"
+    SendKeys "{DOWN}"
+    SendKeys "{ENTER}"
+    SendKeys "{UP}"
+    SendKeys "{ENTER}"
+    'Fim da guia compras
+    
+    
+    'Guia Vendas
+    Call LeftClick(612, 303)
+    Call LeftClick(612, 303)
+    Call LeftClick(1101, 291)
+    SendKeys "{DOWN}"
+    SendKeys "{ENTER}"
+    'criando a carteira
+        Call LeftClick(812, 611)
+        Call LeftClick(812, 611)
+        SendKeys "{F2}"
+        SendKeys "Carteira"
+        Call LeftClick(722, 580)
+        Application.Wait (Now + TimeValue("0:00:03"))
+    Call LeftClick(842, 338) 'selecionando a carteira
+    SendKeys "{ENTER 2}"
+    'Criando a forma de pagamento a vista
+        SendKeys "{F2}"
+        SendKeys "A Vista"
+        Call LeftClick(739, 652)
+        Application.Wait (Now + TimeValue("0:00:03"))
+    Call LeftClick(842, 338) 'selecionando a forma de pagamento
+    'Fim da guia Vendas
+    
+    
+    'Guia Financeiro
+    Call LeftClick(620, 333)
+    Call LeftClick(620, 333)
+    Call LeftClick(776, 293)
+    SendKeys "{DOWN}"
+    SendKeys "{ENTER}"
+    SendKeys "3"
+    SendKeys "{ENTER}"
+    SendKeys "5"
+    SendKeys "{ENTER}"
+    SendKeys "10"
+    SendKeys "{ENTER 2}"
+    SendKeys "{DOWN}"
+    Call LeftClick(769, 607)
+    Call LeftClick(769, 607)
+    SendKeys "155"
+    SendKeys "{ENTER}"
+    'Fim da guia Financeiro
+
+    
+    'Guia geral
+    Call LeftClick(608, 413)
+    Call LeftClick(608, 413)
+    Call LeftClick(788, 363)
+    SendKeys "{DOWN 2}"
+    SendKeys "{ENTER 3}"
+    SendKeys "{DOWN 2}"
+    'fim da guia geral
+    
+    Call LeftClick(601, 770)
+    Call LeftClick(601, 770) 'Salvando a tela
+    
+    Application.Wait (Now + TimeValue("0:00:02"))
+End Sub
+
+
+Sub CadastrarUsuário()
+    Call LeftClick(90, 68) 'Buscando a tela de Usuário
+    Call LeftClick(547, 128)
+    Call LeftClick(568, 304)
+    
+    SendKeys "{F2}" 'Criando um novo usuário
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys "#usuário1"
+    SendKeys "{ENTER}"
+    SendKeys "U1"
+    SendKeys "{ENTER}"
+    SendKeys "1"
+    SendKeys "{ENTER}"
+    SendKeys "1"
+    Call LeftClick(762, 602) 'aqui salva as informações do usuário
+    
+    Application.Wait (Now + TimeValue("0:00:03"))
+    Call LeftClick(963, 340) 'selecionando o privilégio do usuário
+    SendKeys "2"
+    SendKeys "{ENTER 2}" 'Salvando o privilégio
+    
+    
+    Application.Wait (Now + TimeValue("0:00:03"))
+    Application.CutCopyMode = False '--código para tirar a seleção de cópia (ganho na memória da máquina)
+    Call RightClick(717, 431)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys "{ESC}" 'fechando a tela
+    
+    '--- verificação de dados
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+
+        If (Sheets(2).Range("A2").Value <> "#usuário1") Then
+            MsgBox "Ocorreu algum erro com a descrição do usuário" & vbCrLf & "Valor esperado: #usuário1" & vbCrLf & "Valor obtido:" & Sheets(2).Range("A2").Value
+            End
+        End If
+        If (Sheets(2).Range("B2").Value <> "U1") Then
+            MsgBox "Ocorreu algum erro com a descrição do usuário" & vbCrLf & "Valor esperado: U1" & vbCrLf & "Valor obtido:" & Sheets(2).Range("B2").Value
+            End
+        End If
+        If (Sheets(2).Range("D2").Value <> "S") Then
+            MsgBox "Ocorreu algum erro em relação ao Ativo/Inativo do usuário" & vbCrLf & "Valor esperado: S" & vbCrLf & "Valor obtido:" & Sheets(2).Range("D2").Value
+            End
+        End If
+        If (Sheets(2).Range("E2").Value <> "Gerência") Then
+            MsgBox "Ocorreu algum erro com o privilégio do usuário" & vbCrLf & "Valor esperado: Gerência" & vbCrLf & "Valor obtido:" & Sheets(2).Range("E2").Value
+            End
+        End If
+    '---- fim da verificação de dados
+    
+    '---- limpando os dados
+        Sheets(2).Range("A1:H12").Select
+        Selection.ClearContents
+        Selection.NumberFormat = ""
+End Sub
+
+
+Sub CadastrarFuncionario()
+    Call LeftClick(90, 68) 'Buscando a tela de Funcionário
+    Call LeftClick(485, 128)
+    
+    SendKeys "{F2}" 'Criando um novo funcionário
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys "2" 'campo Pessoa
+    SendKeys "{ENTER}"
+    SendKeys "1" 'campo usuario
+    SendKeys "{ENTER 3}"
+    SendKeys "{DOWN}"
+    SendKeys "{ENTER}"
+    SendKeys "{DOWN}"
+    SendKeys "{ENTER}"
+    SendKeys "{DOWN}"
+    SendKeys "{ENTER}"
+    SendKeys "{DOWN}"
+    SendKeys "{ENTER}"
+    SendKeys "{DOWN}"
+    SendKeys "{ENTER}"
+    SendKeys "50" 'campo financeiro
+    SendKeys "{ENTER}"
+    SendKeys "75" 'campo comercial
+    SendKeys "{ENTER 2}" 'aqui salva as informações do funcionário
+    
+    Application.Wait (Now + TimeValue("0:00:03"))
+    Application.CutCopyMode = False '--código para tirar a seleção de cópia (ganho na memória da máquina)
+    Call RightClick(717, 431)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    SendKeys "{ESC}" 'fechando a tela
+    
+    '--- verificação de dados
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+
+        If (Sheets(2).Range("A2").Value <> "#pessoaresponsável") Then
+            MsgBox "Ocorreu algum erro com a descrição do funcionário" & vbCrLf & "Valor esperado: #pessoaresponsável" & vbCrLf & "Valor obtido:" & Sheets(2).Range("A2").Value
+            End
+        End If
+        If (Sheets(2).Range("B2").Value <> "1") Then
+            MsgBox "Ocorreu algum erro com o código interno do funcionário" & vbCrLf & "Valor esperado: 1" & vbCrLf & "Valor obtido:" & Sheets(2).Range("B2").Value
+            End
+        End If
+        If (Sheets(2).Range("C2").Value <> "S") Then
+            MsgBox "Ocorreu algum erro em relação ao Ativo/Inativo do funcionário" & vbCrLf & "Valor esperado: S" & vbCrLf & "Valor obtido:" & Sheets(2).Range("C2").Value
+            End
+        End If
+
+    '---- fim da verificação de dados
+    
+    '---- limpando os dados
+        Sheets(2).Range("A1:H12").Select
+        Selection.ClearContents
+        Selection.NumberFormat = ""
+    
+End Sub
+
+Sub CadastrarMunicipio()
+    Call LeftClick(90, 68) 'Buscando a tela de Municipio
+    Call LeftClick(543, 130)
+    Call LeftClick(624, 240)
+    SendKeys "M"
+    SendKeys "{F2}" 'abrindo a tela de inclusão de Municipio
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys "#ex"
+    SendKeys "{ENTER}"
+    SendKeys "1198"
+    SendKeys "{ENTER 2}" 'salvando o cadastro
+    Application.Wait (Now + TimeValue("0:00:03"))
+    SendKeys "{ESC}" 'fechando a tela
+    
+End Sub
+
+
+Sub CadastrarContaMovimento()
+    Call LeftClick(322, 68) 'Buscando a tela de Conta Movimento
+    Call LeftClick(761, 125)
+    Call LeftClick(802, 195)
+    SendKeys "{F2}"
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys "5"
+    SendKeys "{ENTER 4}" 'salvando a primeira conta movimento
+    
+    Application.Wait (Now + TimeValue("0:00:03"))
+    SendKeys "{F2}"
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys "7"
+    SendKeys "{ENTER}"
+    SendKeys "{DOWN}"
+    SendKeys "{ENTER 3}" 'salvando a segunda conta movimento
+    Application.Wait (Now + TimeValue("0:00:03"))
+    
+    Application.CutCopyMode = False '--código para tirar a seleção de cópia (ganho na memória da máquina)
+    Call RightClick(717, 431)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    SendKeys "{ESC}" 'fechando a tela
+    
+    '--- verificação de dados
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+
+        If (Sheets(2).Range("A2").Value <> "Banco do Brasil S/A.") Then
+            MsgBox "Ocorreu algum erro com a descrição da conta movimento" & vbCrLf & "Valor esperado: Banco do Brasil S/A." & vbCrLf & "Valor obtido:" & Sheets(2).Range("A2").Value
+            End
+        End If
+        If (Sheets(2).Range("C2").Value <> "C. Corrente") Then
+            MsgBox "Ocorreu algum erro com o tipo da conta movimento" & vbCrLf & "Valor esperado: C. Corrente" & vbCrLf & "Valor obtido:" & Sheets(2).Range("C2").Value
+            End
+        End If
+        If (Sheets(2).Range("E2").Value <> "S") Then
+            MsgBox "Ocorreu algum erro em relação ao Ativo/Inativo" & vbCrLf & "Valor esperado: S" & vbCrLf & "Valor obtido:" & Sheets(2).Range("E2").Value
+            End
+        End If
+        'verificação da conta 2
+        If (Sheets(2).Range("A3").Value <> "Caixa Geral") Then
+            MsgBox "Ocorreu algum erro com a descrição da conta movimento" & vbCrLf & "Valor esperado: Caixa Geral" & vbCrLf & "Valor obtido:" & Sheets(2).Range("A3").Value
+            End
+        End If
+        If (Sheets(2).Range("C3").Value <> "Caixa      ") Then
+            MsgBox "Ocorreu algum erro com o tipo da conta movimento" & vbCrLf & "Valor esperado: Caixa" & vbCrLf & "Valor obtido:" & Sheets(2).Range("C3").Value
+            End
+        End If
+        If (Sheets(2).Range("E3").Value <> "S") Then
+            MsgBox "Ocorreu algum erro em relação ao Ativo/Inativo da Conta Movimento" & vbCrLf & "Valor esperado: S" & vbCrLf & "Valor obtido:" & Sheets(2).Range("E3").Value
+            End
+        End If
+
+    '---- fim da verificação de dados
+    
+    '---- limpando os dados
+        Sheets(2).Range("A1:W12").Select
+        Selection.ClearContents
+        Selection.NumberFormat = ""
+End Sub
+
+
+Sub CadastrarClassificacao()
+    Call LeftClick(90, 68) 'Buscando a tela de classificação
+    Call LeftClick(543, 130)
+    Call LeftClick(587, 195)
+    SendKeys "{F2}" 'cadastrando a classificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys "Geral"
+    SendKeys "{ENTER 4}"
+    SendKeys "{UP}"
+    SendKeys "{ENTER}"
+    SendKeys "{UP}"
+    Call LeftClick(776, 446)
+    Application.Wait (Now + TimeValue("0:00:01"))
+    Call LeftClick(782, 611)
+    Call LeftClick(782, 611)
+    Call LeftClick(793, 613)
+    Application.Wait (Now + TimeValue("0:00:01"))
+    Call LeftClick(709, 660) 'salvando as informações
+    
+    Application.Wait (Now + TimeValue("0:00:03"))
+    Application.CutCopyMode = False '--código para tirar a seleção de cópia (ganho na memória da máquina)
+    Call RightClick(717, 431)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    SendKeys "{ESC}" 'fechando a tela
+    
+    '--- verificação de dados
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+
+        If (Sheets(2).Range("A2").Value <> "Geral") Then
+            MsgBox "Ocorreu algum erro com a descrição da classificação" & vbCrLf & "Valor esperado: Geral" & vbCrLf & "Valor obtido:" & Sheets(2).Range("A2").Value
+            End
+        End If
+        If (Sheets(2).Range("B2").Value <> "1") Then
+            MsgBox "Ocorreu algum erro com o código interno da classificação" & vbCrLf & "Valor esperado: 1" & vbCrLf & "Valor obtido:" & Sheets(2).Range("B2").Value
+            End
+        End If
+        
+        Dim cont As Integer
+        cont = 0
+        
+        Do While (cont < 16) 'verifica os bloqueios
+            If (Sheets(2).Range(Chr(67 + cont) & "2").Value <> "Não     ") Then
+                MsgBox "Ocorreu algum erro em relação ao " & Sheets(2).Range(Chr(67 + cont) & "1").Value & vbCrLf & "Valor esperado: Não" & vbCrLf & "Valor obtido:" & Sheets(2).Range(Chr(67 + cont) & "2").Value
+                End
+            End If
+            
+            cont = cont + 1
+            If (cont = 12) Then
+                cont = 14
+            End If
+        Loop 'fim da verificação dos bloqueios
+        
+        If (Sheets(2).Range("S2").Value <> "0") Then
+            MsgBox "Ocorreu algum erro com o Bloqueio Venda a Prazo" & vbCrLf & "Valor esperado: 0" & vbCrLf & "Valor obtido:" & Sheets(2).Range("S2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("T2").Value <> "0") Then
+            MsgBox "Ocorreu algum erro com o Cobrar" & vbCrLf & "Valor esperado: 0" & vbCrLf & "Valor obtido:" & Sheets(2).Range("T2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("V2").Value <> "S") Then
+            MsgBox "Ocorreu algum erro com o Ativo/Inativo da Classificação" & vbCrLf & "Valor esperado: S" & vbCrLf & "Valor obtido:" & Sheets(2).Range("V2").Value
+            End
+        End If
+
+    '---- fim da verificação de dados
+    
+    '---- limpando os dados
+        Sheets(2).Range("A1:Z12").Select
+        Selection.ClearContents
+        Selection.NumberFormat = ""
+End Sub
+
+
+Sub CadastrarMarca()
+    Call LeftClick(90, 68) 'Buscando a tela de Marca
+    Call LeftClick(97, 123)
+    Call LeftClick(116, 240)
+    SendKeys "{F2}"
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys "Teste Marca"
+    Call LeftClick(829, 615) 'salvando a marca
+    Call LeftClick(825, 581)
+    
+    Application.Wait (Now + TimeValue("0:00:03"))
+    Application.CutCopyMode = False '--código para tirar a seleção de cópia (ganho na memória da máquina)
+    Call RightClick(717, 431)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    SendKeys "{ESC}" 'fechando a tela
+    
+    
+
+    '--- verificação de dados
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+
+        If (Sheets(2).Range("A2").Value <> "Teste Marca") Then
+            MsgBox "Ocorreu algum erro com a descrição da Marca" & vbCrLf & "Valor esperado: Teste Marca" & vbCrLf & "Valor obtido:" & Sheets(2).Range("A2").Value
+            End
+        End If
+        If (Sheets(2).Range("B2").Value <> "1") Then
+            MsgBox "Ocorreu algum erro com o código interno da Marca" & vbCrLf & "Valor esperado: 1" & vbCrLf & "Valor obtido:" & Sheets(2).Range("B2").Value
+            End
+        End If
+        If (Sheets(2).Range("C2").Value <> "S") Then
+            MsgBox "Ocorreu algum erro com o Ativo/Inativo da marca" & vbCrLf & "Valor esperado: S" & vbCrLf & "Valor obtido:" & Sheets(2).Range("C2").Value
+            End
+        End If
+
+    '---- fim da verificação de dados
+    
+    '---- limpando os dados
+        Sheets(2).Range("A1:Z12").Select
+        Selection.ClearContents
+        Selection.NumberFormat = ""
+End Sub
+
+
+Sub CadastrarGrupo()
+    Call LeftClick(90, 68) 'Buscando a tela de grupo
+    Call LeftClick(97, 123)
+    Call LeftClick(113, 194)
+    SendKeys "{F2}"
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys "Teste Grupo"
+    Call LeftClick(804, 603) 'salvando o grupo
+    Call LeftClick(811, 582)
+    
+    Application.Wait (Now + TimeValue("0:00:03"))
+    Application.CutCopyMode = False '--código para tirar a seleção de cópia (ganho na memória da máquina)
+    Call RightClick(717, 431)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    SendKeys "{ESC}" 'fechando a tela
+    
+    
+
+    '--- verificação de dados
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+
+        If (Sheets(2).Range("A2").Value <> "Teste Grupo") Then
+            MsgBox "Ocorreu algum erro com a descrição do Grupo" & vbCrLf & "Valor esperado: Teste Grupo" & vbCrLf & "Valor obtido:" & Sheets(2).Range("A2").Value
+            End
+        End If
+        If (Sheets(2).Range("B2").Value <> "1") Then
+            MsgBox "Ocorreu algum erro com o código interno do Grupo" & vbCrLf & "Valor esperado: 1" & vbCrLf & "Valor obtido:" & Sheets(2).Range("B2").Value
+            End
+        End If
+        If (Sheets(2).Range("C2").Value <> "S") Then
+            MsgBox "Ocorreu algum erro com o Ativo/Inativo do Grupo" & vbCrLf & "Valor esperado: S" & vbCrLf & "Valor obtido:" & Sheets(2).Range("C2").Value
+            End
+        End If
+
+    '---- fim da verificação de dados
+    
+    '---- limpando os dados
+        Sheets(2).Range("A1:Z12").Select
+        Selection.ClearContents
+        Selection.NumberFormat = ""
+End Sub
+
+
+
+Sub CadastrarSubGrupo()
+    Call LeftClick(90, 68) 'Buscando a tela de Subgrupo
+    Call LeftClick(97, 123)
+    Call LeftClick(126, 349)
+    SendKeys "{F2}"
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys "Teste Subgrupo"
+    Call LeftClick(804, 603) 'salvando o subgrupo
+    Call LeftClick(832, 580)
+    
+    Application.Wait (Now + TimeValue("0:00:03"))
+    Application.CutCopyMode = False '--código para tirar a seleção de cópia (ganho na memória da máquina)
+    Call RightClick(717, 431)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    SendKeys "{ESC}" 'fechando a tela
+    
+    
+
+    '--- verificação de dados
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+
+        If (Sheets(2).Range("A2").Value <> "Teste Subgrupo") Then
+            MsgBox "Ocorreu algum erro com a descrição do SubGrupo" & vbCrLf & "Valor esperado: Teste Subgrupo" & vbCrLf & "Valor obtido:" & Sheets(2).Range("A2").Value
+            End
+        End If
+        If (Sheets(2).Range("B2").Value <> "1") Then
+            MsgBox "Ocorreu algum erro com o código interno do SubGrupo" & vbCrLf & "Valor esperado: 1" & vbCrLf & "Valor obtido:" & Sheets(2).Range("B2").Value
+            End
+        End If
+        If (Sheets(2).Range("C2").Value <> "S") Then
+            MsgBox "Ocorreu algum erro com o Ativo/Inativo do SubGrupo" & vbCrLf & "Valor esperado: S" & vbCrLf & "Valor obtido:" & Sheets(2).Range("C2").Value
+            End
+        End If
+
+    '---- fim da verificação de dados
+    
+    '---- limpando os dados
+        Sheets(2).Range("A1:Z12").Select
+        Selection.ClearContents
+        Selection.NumberFormat = ""
+End Sub
+
+
+Sub CadastrarUnidade()
+    Call LeftClick(90, 68) 'Buscando a tela de Unidade
+    Call LeftClick(97, 123)
+    Call LeftClick(136, 392)
+    SendKeys "{F2}"
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys "Unidade"
+    SendKeys "{ENTER}"
+    SendKeys "UN"
+    Call LeftClick(825, 576) 'salvando a primeira unidade (UN)
+    
+    Application.Wait (Now + TimeValue("0:00:03"))
+    SendKeys "{F2}"
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys "Decimal"
+    SendKeys "{ENTER}"
+    SendKeys "DC"
+    SendKeys "{ENTER}"
+    SendKeys "{UP}"
+    SendKeys "{ENTER 2}" 'salvando da segunda unidade (DC)
+    
+    
+    Application.Wait (Now + TimeValue("0:00:03"))
+    Application.CutCopyMode = False '--código para tirar a seleção de cópia (ganho na memória da máquina)
+    Call RightClick(717, 431)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    SendKeys "{ESC}" 'fechando a tela
+    
+    
+
+    '--- verificação de dados
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+
+        If (Sheets(2).Range("A2").Value <> "Decimal") Then
+            MsgBox "Ocorreu algum erro com a descrição da Unidade" & vbCrLf & "Valor esperado: Decimal" & vbCrLf & "Valor obtido:" & Sheets(2).Range("A2").Value
+            End
+        End If
+        If (Sheets(2).Range("B2").Value <> "2") Then
+            MsgBox "Ocorreu algum erro com o código interno da Unidade" & vbCrLf & "Valor esperado: 2" & vbCrLf & "Valor obtido:" & Sheets(2).Range("B2").Value
+            End
+        End If
+        If (Sheets(2).Range("C2").Value <> "DC") Then
+            MsgBox "Ocorreu algum erro com o simbolo da Unidade" & vbCrLf & "Valor esperado: DC" & vbCrLf & "Valor obtido:" & Sheets(2).Range("C2").Value
+            End
+        End If
+        If (Sheets(2).Range("D2").Value <> "S") Then
+            MsgBox "Ocorreu algum erro com o Ativo/Inativo da Unidade" & vbCrLf & "Valor esperado: S" & vbCrLf & "Valor obtido:" & Sheets(2).Range("D2").Value
+            End
+        End If
+        '----Verificação da outra Unidade
+
+        If (Sheets(2).Range("A3").Value <> "Unidade") Then
+            MsgBox "Ocorreu algum erro com a descrição da Unidade" & vbCrLf & "Valor esperado: Unidade" & vbCrLf & "Valor obtido:" & Sheets(2).Range("A3").Value
+            End
+        End If
+        If (Sheets(2).Range("B3").Value <> "1") Then
+            MsgBox "Ocorreu algum erro com o código interno da Unidade" & vbCrLf & "Valor esperado: 1" & vbCrLf & "Valor obtido:" & Sheets(2).Range("B3").Value
+            End
+        End If
+        If (Sheets(2).Range("C3").Value <> "UN") Then
+            MsgBox "Ocorreu algum erro com o simbolo da Unidade" & vbCrLf & "Valor esperado: UN" & vbCrLf & "Valor obtido:" & Sheets(2).Range("C3").Value
+            End
+        End If
+        If (Sheets(2).Range("D3").Value <> "S") Then
+            MsgBox "Ocorreu algum erro com o Ativo/Inativo da Unidade" & vbCrLf & "Valor esperado: S" & vbCrLf & "Valor obtido:" & Sheets(2).Range("D3").Value
+            End
+        End If
+
+    '---- fim da verificação de dados
+    
+    '---- limpando os dados
+        Sheets(2).Range("A1:Z12").Select
+        Selection.ClearContents
+        Selection.NumberFormat = ""
+End Sub
+
+
+
+
+Sub CadastrarGrupoServico()
+    Call LeftClick(90, 68) 'Buscando a tela de Grupo Serviço
+    Call LeftClick(214, 124)
+    Call LeftClick(240, 172)
+    SendKeys ("{F2}") 'abrindo a tela de GrupoServiço
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys ("Grupo Servico Teste")
+    SendKeys ("{ENTER 2}") 'salva os dados informados
+    
+    
+    Application.Wait (Now + TimeValue("0:00:03"))
+    Application.CutCopyMode = False '--código para tirar a seleção de cópia (ganho na memória da máquina)
+    Call RightClick(717, 431)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    SendKeys "{ESC}" 'fechando a tela
+    
+    
+
+    '--- verificação de dados
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+
+        If (Sheets(2).Range("A2").Value <> "Grupo Servico Teste") Then
+            MsgBox "Ocorreu algum erro com a descrição do Grupo de Serviço" & vbCrLf & "Valor esperado: Grupo Servico Teste" & vbCrLf & "Valor obtido:" & Sheets(2).Range("A2").Value
+            End
+        End If
+        If (Sheets(2).Range("B2").Value <> "1") Then
+            MsgBox "Ocorreu algum erro com o código interno do Grupo de Serviço" & vbCrLf & "Valor esperado: 1" & vbCrLf & "Valor obtido:" & Sheets(2).Range("B2").Value
+            End
+        End If
+        If (Sheets(2).Range("C2").Value <> "S") Then
+            MsgBox "Ocorreu algum erro com o Ativo/Inativo do Grupo de Serviço" & vbCrLf & "Valor esperado: S" & vbCrLf & "Valor obtido:" & Sheets(2).Range("C2").Value
+            End
+        End If
+        
+    '---- fim da verificação de dados
+    
+    '---- limpando os dados
+        Sheets(2).Range("A1:Z12").Select
+        Selection.ClearContents
+        Selection.NumberFormat = ""
+End Sub
+
+
+
+Sub AlterarPessoa()
+    Call LeftClick(90, 68) 'Buscando a tela de Pessoas
+    Call LeftClick(287, 129)
+    SendKeys ("{F11}")
+    SendKeys ("#pessoa5") 'filtrando a pessoa que vai ser alterada
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys ("{F3}") 'editando a pessoa 5
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    Call LeftClick(675, 285)
+    Call LeftClick(675, 285) 'acessando a guia Complemento
+    Call LeftClick(704, 306) 'acessando a subguia Contatos
+    
+    SendKeys ("6")
+    SendKeys ("{ENTER 4}")
+    SendKeys ("email_de_teste@realtec.com")
+    SendKeys ("{ENTER 3}")
+    
+    Call LeftClick(602, 352)
+    SendKeys ("3")
+    SendKeys ("{ENTER 2}")
+    SendKeys ("Pessoa de teste")
+    SendKeys ("{ENTER}")
+    SendKeys ("(34)99999-1234")
+    SendKeys ("{ENTER 3}")
+    
+    Application.Wait (Now + TimeValue("0:00:01"))
+    Call RightClick(652, 449)
+    SendKeys ("T")
+    Application.Wait (Now + TimeValue("0:00:01"))
+    Call LeftClick(602, 766) 'salvando os dados
+    Application.Wait (Now + TimeValue("0:00:03"))
+    SendKeys "{ESC}" 'fechando a tela
+    
+    '--- verificação de dados
+        Application.CutCopyMode = False '--código para tirar a seleção de cópia (ganho na memória da máquina)
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+
+        If (Sheets(2).Range("A2").Value <> "(34)99999-1234") Then
+            MsgBox "Ocorreu algum erro com o Contato" & vbCrLf & "Valor esperado: (34)99999-1234" & vbCrLf & "Valor obtido:" & Sheets(2).Range("A2").Value
+            End
+        End If
+        If (Sheets(2).Range("B2").Value <> "Pessoa de Teste") Then
+            MsgBox "Ocorreu algum erro com o nome do Contato" & vbCrLf & "Valor esperado: Pessoa de Teste" & vbCrLf & "Valor obtido:" & Sheets(2).Range("B2").Value
+            End
+        End If
+        If (Sheets(2).Range("C2").Value <> "Celular") Then
+            MsgBox "Ocorreu algum erro com o Tipo de Contato" & vbCrLf & "Valor esperado: Celular" & vbCrLf & "Valor obtido:" & Sheets(2).Range("C2").Value
+            End
+        End If
+        If (Sheets(2).Range("D2").Value <> "0") Then
+            MsgBox "Ocorreu algum erro com o Enviar Email do Contato" & vbCrLf & "Valor esperado: 0" & vbCrLf & "Valor obtido:" & Sheets(2).Range("D2").Value
+            End
+        End If
+        '----Verificação da outra Unidade
+
+        If (Sheets(2).Range("A3").Value <> "email_de_teste@realtec.com") Then
+            MsgBox "Ocorreu algum erro com o Contato" & vbCrLf & "Valor esperado: email_de_teste@realtec.com" & vbCrLf & "Valor obtido:" & Sheets(2).Range("A3").Value
+            End
+        End If
+        If (Sheets(2).Range("B3").Value <> "") Then
+            MsgBox "Ocorreu algum erro com o nome do Contato" & vbCrLf & "Valor esperado era pra ser vazio: " & vbCrLf & "Valor obtido:" & Sheets(2).Range("B3").Value
+            End
+        End If
+        If (Sheets(2).Range("C3").Value <> "E-mail") Then
+            MsgBox "Ocorreu algum erro com o Tipo de Contato" & vbCrLf & "Valor esperado: E-mail" & vbCrLf & "Valor obtido:" & Sheets(2).Range("C3").Value
+            End
+        End If
+        If (Sheets(2).Range("D3").Value <> "0") Then
+            MsgBox "Ocorreu algum erro com o Enviar Email do Contato" & vbCrLf & "Valor esperado: 0" & vbCrLf & "Valor obtido:" & Sheets(2).Range("D3").Value
+            End
+        End If
+
+    '---- fim da verificação de dados
+    
+    '---- limpando os dados
+        Sheets(2).Range("A1:Z12").Select
+        Selection.ClearContents
+        Selection.NumberFormat = ""
+End Sub
+
+
+Sub CadastrarFormaPagamento()
+    Call LeftClick(209, 66) 'Buscando a tela de Forma Pagamento
+    Call LeftClick(1004, 118)
+    Call LeftClick(1034, 218)
+    SendKeys ("{F2}") 'abrindo a tela de Forma Pagamento
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    'primeira forma de pagamento
+        SendKeys ("2x S/E")
+        SendKeys ("{ENTER}")
+        SendKeys ("{DOWN}") 'informando que é crediário
+        SendKeys ("{ENTER}")
+        SendKeys ("2") 'informando que qtd parcelas
+        SendKeys ("{ENTER}")
+        SendKeys ("{DOWN}") 'infromando se é entrada
+        SendKeys ("{ENTER}")
+        Call LeftClick(743, 655)
+        Call LeftClick(743, 655) 'salvando os dados
+    Application.Wait (Now + TimeValue("0:00:03"))
+    SendKeys ("{F2}") 'abrindo a tela de Forma Pagamento
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    'segunda forma de pagamento
+        SendKeys ("1x S/E")
+        SendKeys ("{ENTER}")
+        SendKeys ("{DOWN}") 'informando que é crediário
+        SendKeys ("{ENTER}")
+        SendKeys ("1") 'informando que qtd parcelas
+        SendKeys ("{ENTER}")
+        SendKeys ("{DOWN}") 'infromando se é entrada
+        SendKeys ("{ENTER}")
+        Call LeftClick(743, 655)
+        Call LeftClick(743, 655) 'salvando os dados
+    Application.Wait (Now + TimeValue("0:00:03"))
+    SendKeys ("{F2}") 'abrindo a tela de Forma Pagamento
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    'terceira forma de pagamento
+        SendKeys ("3x S/E")
+        SendKeys ("{ENTER}")
+        SendKeys ("{DOWN}") 'informando que é crediário
+        SendKeys ("{ENTER}")
+        SendKeys ("3") 'informando que qtd parcelas
+        SendKeys ("{ENTER}")
+        SendKeys ("{DOWN}") 'infromando se é entrada
+        SendKeys ("{ENTER}")
+        Call LeftClick(743, 655)
+        Call LeftClick(743, 655) 'salvando os dados
+    Application.Wait (Now + TimeValue("0:00:03"))
+    SendKeys ("{F2}") 'abrindo a tela de Forma Pagamento
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    'quarta forma de pagamento
+        SendKeys ("2x c/E")
+        SendKeys ("{ENTER}")
+        SendKeys ("{DOWN}") 'informando que é crediário
+        SendKeys ("{ENTER}")
+        SendKeys ("2") 'informando que qtd parcelas
+        Call LeftClick(743, 655)
+        Call LeftClick(743, 655) 'salvando os dados
+    Application.Wait (Now + TimeValue("0:00:03"))
+    
+    Application.Wait (Now + TimeValue("0:00:03"))
+    Application.CutCopyMode = False '--código para tirar a seleção de cópia (ganho na memória da máquina)
+    Call RightClick(717, 431)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    SendKeys "{ESC}" 'fechando a tela
+    
+    
+
+    '--- verificação de dados
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+
+        If (Sheets(2).Range("A2").Value <> "1x S/E") Then
+            MsgBox "Ocorreu algum erro com a descrição da Forma de Pagamento" & vbCrLf & "Valor esperado: 1x S/E" & vbCrLf & "Valor obtido:" & Sheets(2).Range("A2").Value
+            End
+        End If
+
+        If (Sheets(2).Range("A3").Value <> "2x C/E") Then
+            MsgBox "Ocorreu algum erro com a descrição da Forma de Pagamento" & vbCrLf & "Valor esperado: 2x C/E" & vbCrLf & "Valor obtido:" & Sheets(2).Range("A3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("A4").Value <> "2x S/E") Then
+            MsgBox "Ocorreu algum erro com a descrição da Forma de Pagamento" & vbCrLf & "Valor esperado: 2x S/E" & vbCrLf & "Valor obtido:" & Sheets(2).Range("A4").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("A5").Value <> "3x S/E") Then
+            MsgBox "Ocorreu algum erro com a descrição da Forma de Pagamento" & vbCrLf & "Valor esperado: 3x S/E" & vbCrLf & "Valor obtido:" & Sheets(2).Range("A5").Value
+            End
+        End If
+
+        If (Sheets(2).Range("A6").Value <> "A Vista") Then
+            MsgBox "Ocorreu algum erro com a descrição da Forma de Pagamento" & vbCrLf & "Valor esperado: A Vista" & vbCrLf & "Valor obtido:" & Sheets(2).Range("A6").Value
+            End
+        End If
+
+        Dim contador As Integer
+        contador = 2
+        Do While (contador < 6)
+            If (Sheets(2).Range("C" & contador).Value <> "Crediário     ") Then
+                MsgBox "Ocorreu algum erro com o Tipo da Forma de Pagamento" & vbCrLf & "Valor esperado: Crediário     " & vbCrLf & "Valor obtido:" & Sheets(2).Range("C" & contador).Value
+                End
+            End If
+            contador = contador + 1
+        Loop
+        
+        If (Sheets(2).Range("C6").Value <> "A Vista       ") Then
+            MsgBox "Ocorreu algum erro com o Tipo da Forma de Pagamento" & vbCrLf & "Valor esperado: A Vista       " & vbCrLf & "Valor obtido:" & Sheets(2).Range("C6").Value
+            End
+        End If
+        
+        contador = 2
+        Do While (contador < 7)
+            If (Sheets(2).Range("D" & contador).Value <> 0) Then
+                MsgBox "Ocorreu algum erro com a diferença de dias da Forma de Pagamento" & vbCrLf & "Valor esperado: 0" & vbCrLf & "Valor obtido:" & Sheets(2).Range("D" & contador).Value
+                End
+            End If
+            contador = contador + 1
+        Loop
+        
+        If (Sheets(2).Range("F3").Value <> "S") Then
+            MsgBox "Ocorreu algum erro com a Entrada da Forma de Pagamento" & vbCrLf & "Valor esperado: S" & vbCrLf & "Valor obtido:" & Sheets(2).Range("F3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("F6").Value <> "S") Then
+            MsgBox "Ocorreu algum erro com a Entrada da Forma de Pagamento" & vbCrLf & "Valor esperado: S" & vbCrLf & "Valor obtido:" & Sheets(2).Range("F6").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("F2").Value <> "N") Then
+            MsgBox "Ocorreu algum erro com a Entrada da Forma de Pagamento" & vbCrLf & "Valor esperado: N" & vbCrLf & "Valor obtido:" & Sheets(2).Range("F2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("F5").Value <> "N") Then
+            MsgBox "Ocorreu algum erro com a Entrada da Forma de Pagamento" & vbCrLf & "Valor esperado: N" & vbCrLf & "Valor obtido:" & Sheets(2).Range("F5").Value
+            End
+        End If
+        
+    '---- fim da verificação de dados
+    
+    '---- limpando os dados
+        Sheets(2).Range("A1:Z12").Select
+        Selection.ClearContents
+        Selection.NumberFormat = ""
+    
+End Sub
+
+
+
+Sub EntradaCompra1()
+    Call LeftClick(149, 66) 'Buscando a tela de Compras
+    Call LeftClick(36, 125)
+    Application.Wait (Now + TimeValue("0:00:01"))
+    Call LeftClick(789, 693)
+    Application.Wait (Now + TimeValue("0:00:02"))
+    SendKeys ("{F2}") 'Criando a entrada compra 1
+    Application.Wait (Now + TimeValue("0:00:02"))
+    SendKeys ("31180304248801000121550000000597691000597698") 'Chave
+    SendKeys ("{ENTER 6}")
+    SendKeys ("1102") 'CFOP
+    SendKeys ("{ENTER}")
+    SendKeys ("3") 'Fornecedor
+    SendKeys ("{ENTER 2}")
+    SendKeys ("{UP 2}") 'Informa que é simples nacional
+    SendKeys ("{ENTER}")
+    SendKeys ("1") 'Funcionário
+    SendKeys ("{ENTER}")
+    SendKeys ("2") 'Forma de Pagamento
+    SendKeys ("{ENTER}")
+    SendKeys ("{UP 2}") 'selecionando a modalidade do frete
+    SendKeys ("{ENTER}")
+    Call LeftClick(1416, 335)
+    Application.Wait (Now + TimeValue("0:00:05"))
+    Call LeftClick(1416, 335)
+    Application.Wait (Now + TimeValue("0:00:01"))
+    Call LeftClick(1416, 335)
+    Call LeftClick(1416, 335)
+    '----Primeiro item
+        SendKeys ("1") 'codigo do produto
+        SendKeys ("{ENTER 2}")
+        SendKeys ("103") 'cst
+        SendKeys ("{ENTER}")
+        SendKeys ("150") 'quantidade
+        SendKeys ("{ENTER}")
+        SendKeys ("2,5") 'unitário
+        SendKeys ("{ENTER 3}")
+        SendKeys ("21") '%ICMS
+        SendKeys ("{ENTER 4}")
+    Application.Wait (Now + TimeValue("0:00:01"))
+    '----Segundo Item
+        SendKeys ("2")
+        SendKeys ("{ENTER 2}")
+        SendKeys ("900") 'cst
+        SendKeys ("{ENTER}")
+        SendKeys ("100") 'quantidade
+        SendKeys ("{ENTER}")
+        SendKeys ("15") 'unitário
+        SendKeys ("{ENTER 3}")
+        SendKeys ("5")
+        SendKeys ("{ENTER}")
+        SendKeys ("2") '%ICMS
+        SendKeys ("{ENTER 7}")
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    Call LeftClick(1032, 743) 'abrindo a tela de rateio
+    SendKeys ("12,5") 'frete
+    SendKeys ("{ENTER 2}")
+    SendKeys ("7,5") 'seguro
+    SendKeys ("{ENTER 2}")
+    SendKeys ("5") 'despesa
+    SendKeys ("{ENTER 2}")
+    SendKeys ("{ESC}") 'fechando a tela de rateio
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    Call LeftClick(503, 837)   'clicando no estoque
+    Application.Wait (Now + TimeValue("0:00:02"))
+    Call LeftClick(574, 841)   'clicando no financeiro
+    Application.Wait (Now + TimeValue("0:00:03"))
+    Call LeftClick(1236, 453)   'clicando no botão Gerar
+    Application.Wait (Now + TimeValue("0:00:01"))
+    Call LeftClick(670, 743)   'salvando o financeiro
+    Application.Wait (Now + TimeValue("0:00:03"))
+    
+    
+    Application.CutCopyMode = False '--código para tirar a seleção de cópia (ganho na memória da máquina)
+    Call RightClick(672, 403)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    '--- verificação dos produtos inseridos
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+
+        If (Sheets(2).Range("F2").Value <> "103") Then
+            MsgBox "Ocorreu algum erro com o CST da Entrada Compra" & vbCrLf & "Valor esperado: 103" & vbCrLf & "Valor obtido:" & Sheets(2).Range("F2").Value
+            End
+        End If
+
+        If (Sheets(2).Range("F3").Value <> "900") Then
+            MsgBox "Ocorreu algum erro com o CST da Entrada Compra" & vbCrLf & "Valor esperado: 900" & vbCrLf & "Valor obtido:" & Sheets(2).Range("F3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("H2").Value <> "150") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("H1").Value & " da Entrada Compra" & vbCrLf & "Valor esperado: 150" & vbCrLf & "Valor obtido:" & Sheets(2).Range("H2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("H3").Value <> "100") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("H1").Value & " da Entrada Compra" & vbCrLf & "Valor esperado: 100" & vbCrLf & "Valor obtido:" & Sheets(2).Range("H3").Value
+            End
+        End If
+        
+        If (CStr(Sheets(2).Range("I2").Value) <> "2,5") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("I1").Value & " da Entrada Compra" & vbCrLf & "Valor esperado: 2,5" & vbCrLf & "Valor obtido:" & Sheets(2).Range("I2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("I3").Value <> "15") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("I1").Value & " da Entrada Compra" & vbCrLf & "Valor esperado: 15" & vbCrLf & "Valor obtido:" & Sheets(2).Range("I3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("K2").Value <> "375") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("K1").Value & " da Entrada Compra" & vbCrLf & "Valor esperado: 375" & vbCrLf & "Valor obtido:" & Sheets(2).Range("K2").Value
+            End
+        End If
+        
+        If (CStr(Sheets(2).Range("K3").Value) <> "1500") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("K1").Value & " da Entrada Compra" & vbCrLf & "Valor esperado: 1500" & vbCrLf & "Valor obtido:" & Sheets(2).Range("K3").Value
+            End
+        End If
+        
+        If (CStr(Sheets(2).Range("L2").Value) <> "0") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("L1").Value & " da Entrada Compra" & vbCrLf & "Valor esperado: 0" & vbCrLf & "Valor obtido:" & Sheets(2).Range("L2").Value
+            End
+        End If
+        
+        If (CStr(Sheets(2).Range("L3").Value) <> "1425") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("L1").Value & " da Entrada Compra" & vbCrLf & "Valor esperado: 1425" & vbCrLf & "Valor obtido:" & Sheets(2).Range("L3").Value
+            End
+        End If
+        
+        If (CStr(Sheets(2).Range("M2").Value) <> "0") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("L1").Value & " da Entrada Compra" & vbCrLf & "Valor esperado: 0" & vbCrLf & "Valor obtido:" & Sheets(2).Range("M2").Value
+            End
+        End If
+        
+        If (CStr(Sheets(2).Range("M3").Value) <> "171") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("M1").Value & " da Entrada Compra" & vbCrLf & "Valor esperado: 171" & vbCrLf & "Valor obtido:" & Sheets(2).Range("M3").Value
+            End
+        End If
+        
+        Sheets(2).Range("A1:Z12").Select
+        Selection.ClearContents
+        Selection.NumberFormat = ""
+    'fim da verificação dos produtos inseridos
+    
+    
+    SendKeys "{ESC}" 'fechando a tela de inclusao da Entrada compra
+    Application.Wait (Now + TimeValue("0:00:02"))
+    SendKeys "{ESC}" 'fechando a tela de consulta da Entrada Compra
+    Application.Wait (Now + TimeValue("0:00:01"))
+End Sub
+
+
+
+Sub EntradaCompra2()
+    Call LeftClick(149, 66) 'Buscando a tela de Compras
+    Call LeftClick(36, 125)
+    Application.Wait (Now + TimeValue("0:00:01"))
+    Call LeftClick(789, 693)
+    Application.Wait (Now + TimeValue("0:00:02"))
+    SendKeys ("{F2}") 'Criando a entrada compra 1
+    Application.Wait (Now + TimeValue("0:00:02"))
+    SendKeys ("{ENTER}")
+    SendKeys ("6431") 'numero
+    SendKeys ("{ENTER}")
+    SendKeys ("034") 'serie
+    SendKeys ("{ENTER}")
+    SendKeys ("{UP 3}") 'informando que é nota fiscal do tipo 01
+    SendKeys ("{ENTER 5}")
+    SendKeys ("1102") 'CFOP
+    SendKeys ("{ENTER}")
+    SendKeys ("1") 'Fornecedor
+    SendKeys ("{ENTER 2}")
+    SendKeys ("{UP 2}") 'Informa que é simples nacional
+    SendKeys ("{ENTER}")
+    SendKeys ("1") 'Funcionário
+    SendKeys ("{ENTER}")
+    SendKeys ("3") 'Forma de Pagamento
+    SendKeys ("{ENTER}")
+    SendKeys ("{UP 2}") 'selecionando a modalidade do frete
+    SendKeys ("{ENTER}")
+    Call LeftClick(1416, 335)
+    Application.Wait (Now + TimeValue("0:00:05"))
+    Call LeftClick(1416, 335)
+    Application.Wait (Now + TimeValue("0:00:01"))
+    Call LeftClick(1416, 335)
+    Call LeftClick(1416, 335)
+    '----Primeiro item
+        SendKeys ("1") 'codigo do produto
+        SendKeys ("{ENTER 2}")
+        SendKeys ("103") 'cst
+        SendKeys ("{ENTER}")
+        SendKeys ("50") 'quantidade
+        SendKeys ("{ENTER}")
+        SendKeys ("2,54") 'unitário
+        SendKeys ("{ENTER 3}")
+        SendKeys ("21") '%ICMS
+        SendKeys ("{ENTER 4}")
+    Application.Wait (Now + TimeValue("0:00:01"))
+    '----Segundo Item
+        SendKeys ("2")
+        SendKeys ("{ENTER 2}")
+        SendKeys ("900") 'cst
+        SendKeys ("{ENTER}")
+        SendKeys ("30") 'quantidade
+        SendKeys ("{ENTER}")
+        SendKeys ("15,2") 'unitário
+        SendKeys ("{ENTER 3}")
+        SendKeys ("5")
+        SendKeys ("{ENTER}")
+        SendKeys ("2") '%ICMS
+        SendKeys ("{ENTER 7}")
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    Call LeftClick(1032, 743) 'abrindo a tela de rateio
+    SendKeys ("20") 'frete
+    SendKeys ("{ENTER 2}")
+    SendKeys ("{ESC}") 'fechando a tela de rateio
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    Call LeftClick(503, 837)   'clicando no estoque
+    Application.Wait (Now + TimeValue("0:00:02"))
+    Call LeftClick(574, 841)   'clicando no financeiro
+    Application.Wait (Now + TimeValue("0:00:03"))
+    Call LeftClick(1236, 453)   'clicando no botão Gerar
+    Application.Wait (Now + TimeValue("0:00:01"))
+    Call LeftClick(670, 743)   'salvando o financeiro
+    Application.Wait (Now + TimeValue("0:00:03"))
+    
+    
+    Application.CutCopyMode = False '--código para tirar a seleção de cópia (ganho na memória da máquina)
+    Call RightClick(672, 403)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    '--- verificação dos produtos inseridos
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+
+        If (Sheets(2).Range("F2").Value <> "103") Then
+            MsgBox "Ocorreu algum erro com o CST da Entrada Compra" & vbCrLf & "Valor esperado: 103" & vbCrLf & "Valor obtido:" & Sheets(2).Range("F2").Value
+            End
+        End If
+
+        If (Sheets(2).Range("F3").Value <> "900") Then
+            MsgBox "Ocorreu algum erro com o CST da Entrada Compra" & vbCrLf & "Valor esperado: 900" & vbCrLf & "Valor obtido:" & Sheets(2).Range("F3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("H2").Value <> "50") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("H1").Value & " da Entrada Compra" & vbCrLf & "Valor esperado: 50" & vbCrLf & "Valor obtido:" & Sheets(2).Range("H2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("H3").Value <> "30") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("H1").Value & " da Entrada Compra" & vbCrLf & "Valor esperado: 30" & vbCrLf & "Valor obtido:" & Sheets(2).Range("H3").Value
+            End
+        End If
+        
+        If (CStr(Sheets(2).Range("I2").Value) <> "2,54") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("I1").Value & " da Entrada Compra" & vbCrLf & "Valor esperado: 2,54" & vbCrLf & "Valor obtido:" & Sheets(2).Range("I2").Value
+            End
+        End If
+        
+        If (CStr(Sheets(2).Range("I3").Value) <> "15,2") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("I1").Value & " da Entrada Compra" & vbCrLf & "Valor esperado: 15,2" & vbCrLf & "Valor obtido:" & Sheets(2).Range("I3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("K2").Value <> "127") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("K1").Value & " da Entrada Compra" & vbCrLf & "Valor esperado: 127" & vbCrLf & "Valor obtido:" & Sheets(2).Range("K2").Value
+            End
+        End If
+        
+        If (CStr(Sheets(2).Range("K3").Value) <> "456") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("K1").Value & " da Entrada Compra" & vbCrLf & "Valor esperado: 456" & vbCrLf & "Valor obtido:" & Sheets(2).Range("K3").Value
+            End
+        End If
+        
+        If (CStr(Sheets(2).Range("L2").Value) <> "0") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("L1").Value & " da Entrada Compra" & vbCrLf & "Valor esperado: 0" & vbCrLf & "Valor obtido:" & Sheets(2).Range("L2").Value
+            End
+        End If
+        
+        If (CStr(Sheets(2).Range("L3").Value) <> "433,2") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("L1").Value & " da Entrada Compra" & vbCrLf & "Valor esperado: 433,2" & vbCrLf & "Valor obtido:" & Sheets(2).Range("L3").Value
+            End
+        End If
+        
+        If (CStr(Sheets(2).Range("M2").Value) <> "0") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("L1").Value & " da Entrada Compra" & vbCrLf & "Valor esperado: 0" & vbCrLf & "Valor obtido:" & Sheets(2).Range("M2").Value
+            End
+        End If
+        
+        If (CStr(Sheets(2).Range("M3").Value) <> "51,98") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("M1").Value & " da Entrada Compra" & vbCrLf & "Valor esperado: 51,98" & vbCrLf & "Valor obtido:" & Sheets(2).Range("M3").Value
+            End
+        End If
+        
+        Sheets(2).Range("A1:Z12").Select
+        Selection.ClearContents
+        Selection.NumberFormat = ""
+    'fim da verificação dos produtos inseridos
+    
+    
+    SendKeys "{ESC}" 'fechando a tela de inclusao da Entrada compra
+    Application.Wait (Now + TimeValue("0:00:02"))
+    SendKeys "{ESC}" 'fechando a tela de consulta da Entrada Compra
+    Application.Wait (Now + TimeValue("0:00:01"))
+End Sub
+
+
+Sub EntradaCompra3()
+    Call LeftClick(149, 66) 'Buscando a tela de Importar XML
+    Call LeftClick(89, 116)
+    Application.Wait (Now + TimeValue("0:00:02"))
+    Call LeftClick(729, 220) 'abrindo a tela de importar XML local
+    Application.Wait (Now + TimeValue("0:00:03"))
+    SendKeys ("\\TST-07\Setor de Teste\Utilitários\1 - Qualidade\Smoke Test\Neo\XML Smoke Test\31130611069897000126550010000310751005835454-nfe.xml") 'selecionando o XML
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys ("{ENTER}")
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys ("S")
+    Application.Wait (Now + TimeValue("0:00:03"))
+    SendKeys ("1403") 'CFOP
+    SendKeys ("{ENTER}")
+    SendKeys ("H") 'informando o dia atual no campo de Emissão
+    SendKeys ("{ENTER 2}")
+    SendKeys ("3") 'fornecedor
+    SendKeys ("{ENTER}")
+    SendKeys ("1") 'funcionário
+    SendKeys ("{ENTER 2}")
+    SendKeys ("3") 'forma de pagamento
+    SendKeys ("{ENTER}")
+    SendKeys ("{DOWN}")
+    SendKeys ("{F4}") 'excluindo o item 2
+    SendKeys ("S")
+    SendKeys ("{F4}") 'excluindo o item 3
+    SendKeys ("S")
+    SendKeys ("{RIGHT 2}")
+    SendKeys ("2") 'associando o #produto2
+    SendKeys ("{ENTER}")
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    SendKeys ("{F3}") 'editando o item
+    Application.Wait (Now + TimeValue("0:00:02"))
+    SendKeys ("1403") 'cfop do item
+    Call LeftClick(502, 606)
+    Application.Wait (Now + TimeValue("0:00:03"))
+    Call LeftClick(502, 606)
+    Call LeftClick(502, 606) 'salvando o item
+    Application.Wait (Now + TimeValue("0:00:02"))
+    Call LeftClick(502, 606)
+    
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    Call LeftClick(1417, 814) 'exportando
+    Call LeftClick(503, 742)
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys ("S") 'confirmando que vai exportar
+    
+    
+    
+    Application.Wait (Now + TimeValue("0:00:05"))
+    Call RightClick(672, 403)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+
+    '--- verificação dos produtos inseridos
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+        
+        If (Sheets(2).Range("F2").Value <> "60") Then
+            MsgBox "Ocorreu algum erro com o CFOP da Entrada Compra" & vbCrLf & "Valor esperado: 60" & vbCrLf & "Valor obtido:" & Sheets(2).Range("F2").Value
+            End
+        End If
+
+        If (Sheets(2).Range("G2").Value <> "1403") And (Sheets(2).Range("G2").Value <> "1,403") Then
+            MsgBox "Ocorreu algum erro com o CFOP da Entrada Compra" & vbCrLf & "Valor esperado: 1.403" & vbCrLf & "Valor obtido:" & Sheets(2).Range("G2").Value
+            End
+        End If
+
+        If (Sheets(2).Range("I2").Value <> "27") Then
+            MsgBox "Ocorreu algum erro com o unitário da Entrada Compra" & vbCrLf & "Valor esperado: 27" & vbCrLf & "Valor obtido:" & Sheets(2).Range("I2").Value
+            End
+        End If
+    
+        If (Sheets(2).Range("K2").Value <> "27") Then
+            MsgBox "Ocorreu algum erro com o unitário da Entrada Compra" & vbCrLf & "Valor esperado: 27" & vbCrLf & "Valor obtido:" & Sheets(2).Range("K2").Value
+            End
+        End If
+        
+        Sheets(2).Range("A1:Z12").Select
+        Selection.ClearContents
+        Selection.NumberFormat = ""
+    'fim da verificação dos produtos inseridos
+    
+    Call LeftClick(503, 837)   'clicando no estoque
+    Application.Wait (Now + TimeValue("0:00:02"))
+    Call LeftClick(574, 841)
+    Application.Wait (Now + TimeValue("0:00:03"))
+    Call LeftClick(570, 840)   'clicando no financeiro
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys ("S") 'Clicando no botão Sim
+    Application.Wait (Now + TimeValue("0:00:03"))
+    Call LeftClick(1236, 453)   'clicando no botão Gerar
+    Application.Wait (Now + TimeValue("0:00:01"))
+    Call LeftClick(670, 743)   'salvando o financeiro
+    Application.Wait (Now + TimeValue("0:00:03"))
+    SendKeys "{ESC}" 'fechando a tela de inclusao da Entrada compra
+    Application.Wait (Now + TimeValue("0:00:02"))
+    SendKeys "{ESC}" 'fechando a tela de XML
+    Application.Wait (Now + TimeValue("0:00:01"))
+End Sub
+
+
+
+Sub EntradaCompra4()
+    Call LeftClick(149, 66) 'Buscando a tela de Importar XML
+    Call LeftClick(89, 116)
+    Application.Wait (Now + TimeValue("0:00:02"))
+    Call LeftClick(729, 220) 'abrindo a tela de importar XML local
+    Application.Wait (Now + TimeValue("0:00:03"))
+    SendKeys ("\\TST-07\Setor de Teste\Utilitários\1 - Qualidade\Smoke Test\Neo\XML Smoke Test\XML Local\35130746344354000154550000000622681008065628-nfe.xml") 'selecionando o XML
+    SendKeys ("{ENTER}")
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys ("S")
+    Application.Wait (Now + TimeValue("0:00:03"))
+    Call LeftClick(691, 339)
+    SendKeys ("1102") 'CFOP
+    SendKeys ("{ENTER}")
+    SendKeys ("H") 'informando o dia atual no campo de Emissão
+    SendKeys ("{ENTER 2}")
+    SendKeys ("3") 'fornecedor
+    SendKeys ("{ENTER}")
+    SendKeys ("1") 'funcionário
+    SendKeys ("{ENTER 2}")
+    SendKeys ("3") 'forma de pagamento
+    SendKeys ("{ENTER}")
+    SendKeys ("{RIGHT 2}")
+    SendKeys ("1") 'associando o #produto1
+    SendKeys ("{ENTER}")
+    SendKeys ("{DOWN}")
+    SendKeys ("{LEFT 4}")
+    SendKeys ("2") 'associando o #produto2
+    SendKeys ("{ENTER}")
+    SendKeys ("{DOWN}")
+    SendKeys ("{LEFT 4}")
+    SendKeys ("3") 'associando o #produto3
+    SendKeys ("{ENTER}")
+    
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    SendKeys ("{UP 2}")
+    '--- 'editando o item 1
+        SendKeys ("{F3}")
+        Application.Wait (Now + TimeValue("0:00:02"))
+        SendKeys ("1102") 'cfop do item
+        SendKeys ("{ENTER}")
+        SendKeys ("500") 'cst do item
+        SendKeys ("{ENTER}")
+        SendKeys ("1") 'quantidade do item
+        SendKeys ("{ENTER}")
+        SendKeys ("10") 'unitario do item
+        SendKeys ("{ENTER}")
+        SendKeys ("0") 'desconto
+        Call LeftClick(483, 567) 'marcando o check NCM
+        Call LeftClick(502, 606)
+        Application.Wait (Now + TimeValue("0:00:03"))
+        Call LeftClick(502, 606)
+        Call LeftClick(502, 606) 'salvando o item
+        Application.Wait (Now + TimeValue("0:00:02"))
+        Call LeftClick(502, 606)
+        Application.Wait (Now + TimeValue("0:00:01"))
+    'fim da edição do item 1
+    
+    SendKeys ("{DOWN}")
+    '--- 'editando o item 2
+        SendKeys ("{F3}")
+        Application.Wait (Now + TimeValue("0:00:02"))
+        SendKeys ("1102") 'cfop do item
+        SendKeys ("{ENTER}")
+        SendKeys ("500") 'cst do item
+        SendKeys ("{ENTER}")
+        SendKeys ("1") 'quantidade do item
+        SendKeys ("{ENTER}")
+        SendKeys ("10") 'unitario do item
+        SendKeys ("{ENTER}")
+        SendKeys ("0") 'desconto
+        Call LeftClick(483, 567) 'marcando o check NCM
+        Call LeftClick(502, 606)
+        Application.Wait (Now + TimeValue("0:00:03"))
+        Call LeftClick(502, 606)
+        Call LeftClick(502, 606) 'salvando o item
+        Application.Wait (Now + TimeValue("0:00:02"))
+        Call LeftClick(502, 606)
+        Application.Wait (Now + TimeValue("0:00:01"))
+    'fim da edição do item 2
+    
+    SendKeys ("{DOWN}")
+    '--- 'editando o item 3
+        SendKeys ("{F3}")
+        Application.Wait (Now + TimeValue("0:00:02"))
+        SendKeys ("1102") 'cfop do item
+        SendKeys ("{ENTER}")
+        SendKeys ("500") 'cst do item
+        SendKeys ("{ENTER}")
+        SendKeys ("100") 'quantidade do item
+        SendKeys ("{ENTER}")
+        SendKeys ("50") 'unitario do item
+        SendKeys ("{ENTER}")
+        SendKeys ("0") 'desconto
+        Call LeftClick(483, 567) 'marcando o check NCM
+        Call LeftClick(502, 606)
+        Application.Wait (Now + TimeValue("0:00:03"))
+        Call LeftClick(502, 606)
+        Call LeftClick(502, 606) 'salvando o item
+        Application.Wait (Now + TimeValue("0:00:02"))
+        Call LeftClick(502, 606)
+        Application.Wait (Now + TimeValue("0:00:01"))
+    'fim da edição do item 3
+    
+    
+    Call LeftClick(1417, 814) 'exportando
+    Call LeftClick(503, 742)
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys ("S") 'confirmando que vai exportar
+    Application.Wait (Now + TimeValue("0:00:05"))
+    
+    Call LeftClick(542, 208) 'acessando a guia itens
+    Call LeftClick(824, 438)
+    Call LeftClick(1437, 433)
+    '---Clicando no botão de acertar variação
+        Application.Wait (Now + TimeValue("0:00:02"))
+        SendKeys ("50") 'informando a quantidade
+        SendKeys ("{ENTER}")
+        SendKeys ("A1B1") 'informando a Barras
+        SendKeys ("{ENTER 4}") 'salvando a variação
+        Application.Wait (Now + TimeValue("0:00:02"))
+        SendKeys ("50") 'informando a quantidade
+        SendKeys ("{ENTER}")
+        SendKeys ("A2B2") 'informando a Barras
+        SendKeys ("{ENTER 4}") 'salvando a variação
+        Application.Wait (Now + TimeValue("0:00:02"))
+        Call LeftClick(598, 759) 'salvando
+    '---Fim do acerto de variação
+    Application.Wait (Now + TimeValue("0:00:03"))
+    
+    Call RightClick(672, 403)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+
+    '--- verificação dos produtos inseridos
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+        
+        Dim contador As Integer
+        contador = 2
+        Do While (contador < 5)
+            If (Sheets(2).Range("F" & contador).Value <> "500") Then
+                MsgBox "Ocorreu algum erro com o CFOP da Entrada Compra" & vbCrLf & "Valor esperado: 500" & vbCrLf & "Valor obtido:" & Sheets(2).Range("F" & contador).Value
+                End
+            End If
+            contador = contador + 1
+        Loop
+        
+        contador = 2
+        Do While (contador < 5)
+            If (Sheets(2).Range("G" & contador).Value <> "1102") And (Sheets(2).Range("G" & contador).Value <> "1,102") Then
+                MsgBox "Ocorreu algum erro com o CFOP da Entrada Compra" & vbCrLf & "Valor esperado: 1.102" & vbCrLf & "Valor obtido:" & Sheets(2).Range("G" & contador).Value
+                End
+            End If
+            contador = contador + 1
+        Loop
+
+        If (Sheets(2).Range("I2").Value <> "10") Or (Sheets(2).Range("I3").Value <> "10") Then
+            MsgBox "Ocorreu algum erro com o unitário da Entrada Compra" & vbCrLf & "Valor esperado: 10/10" & vbCrLf & "Valor obtido:" & Sheets(2).Range("I2").Value & "/" & Sheets(2).Range("I3").Value
+            End
+        End If
+    
+        If (Sheets(2).Range("I4").Value <> "50") Then
+            MsgBox "Ocorreu algum erro com o unitário da Entrada Compra" & vbCrLf & "Valor esperado: 50" & vbCrLf & "Valor obtido:" & Sheets(2).Range("I4").Value
+            End
+        End If
+
+        If (Sheets(2).Range("K2").Value <> "10") Or (Sheets(2).Range("K3").Value <> "10") Then
+            MsgBox "Ocorreu algum erro com o Líquido da Entrada Compra" & vbCrLf & "Valor esperado: 10/10" & vbCrLf & "Valor obtido:" & Sheets(2).Range("K2").Value & "/" & Sheets(2).Range("K3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("K4").Value <> "5000") Then
+            MsgBox "Ocorreu algum erro com o Líquido da Entrada Compra" & vbCrLf & "Valor esperado: 5000" & vbCrLf & "Valor obtido:" & Sheets(2).Range("K4").Value
+            End
+        End If
+
+        If (Sheets(2).Range("L2").Value <> "10") Or (Sheets(2).Range("L3").Value <> "10") Then
+            MsgBox "Ocorreu algum erro com a Base da Entrada Compra" & vbCrLf & "Valor esperado: 10/10" & vbCrLf & "Valor obtido:" & Sheets(2).Range("L2").Value & "/" & Sheets(2).Range("L3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("L4").Value <> "5000") Then
+            MsgBox "Ocorreu algum erro com a Base da Entrada Compra" & vbCrLf & "Valor esperado: 5000" & vbCrLf & "Valor obtido:" & Sheets(2).Range("L4").Value
+            End
+        End If
+        
+        If (CStr(Sheets(2).Range("M2").Value) <> "1,2") Or (CStr(Sheets(2).Range("M3").Value) <> "1,2") Then
+            MsgBox "Ocorreu algum erro com o Valor ICMS da Entrada Compra" & vbCrLf & "Valor esperado: 1,2/1,2" & vbCrLf & "Valor obtido:" & Sheets(2).Range("M2").Value & "/" & Sheets(2).Range("M3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("M4").Value <> "600") Then
+            MsgBox "Ocorreu algum erro com o Valor ICMS da Entrada Compra" & vbCrLf & "Valor esperado: 600" & vbCrLf & "Valor obtido:" & Sheets(2).Range("M4").Value
+            End
+        End If
+        
+        Sheets(2).Range("A1:Z12").Select
+        Selection.ClearContents
+        Selection.NumberFormat = ""
+    'fim da verificação dos produtos inseridos
+    
+    Call LeftClick(503, 837)   'clicando no estoque
+    Application.Wait (Now + TimeValue("0:00:02"))
+    Call LeftClick(574, 841)
+    Application.Wait (Now + TimeValue("0:00:03"))
+    Call LeftClick(570, 840)   'clicando no financeiro
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys ("S") 'Clicando no botão Sim
+    Application.Wait (Now + TimeValue("0:00:03"))
+    Call LeftClick(1236, 453)   'clicando no botão Gerar
+    Application.Wait (Now + TimeValue("0:00:01"))
+    Call LeftClick(670, 743)   'salvando o financeiro
+    Application.Wait (Now + TimeValue("0:00:03"))
+    SendKeys "{ESC}" 'fechando a tela de inclusao da Entrada compra
+    Application.Wait (Now + TimeValue("0:00:02"))
+    SendKeys "{ESC}" 'fechando a tela de XML
+    Application.Wait (Now + TimeValue("0:00:01"))
+End Sub
+
+
+Sub VerificacaoDados1()
+    Call LeftClick(90, 68) 'Buscando a tela de Produto
+    Call LeftClick(40, 122)
+    Call LeftClick(776, 610)
+    Application.Wait (Now + TimeValue("0:00:02"))
+    
+    Application.CutCopyMode = False '--código para tirar a seleção de cópia (ganho na memória da máquina)
+    Call RightClick(717, 431)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    '--- verificação de dados dos produtos
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+        
+        If (Sheets(2).Range("D2").Value <> "10") Or (Sheets(2).Range("D3").Value <> "10") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("D1").Value & " do Produto" & vbCrLf & "Valor esperado: 10/10" & vbCrLf & "Valor obtido:" & Sheets(2).Range("D2").Value & Sheets(2).Range("D3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("D4").Value <> "50") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("D1").Value & " do Produto" & vbCrLf & "Valor esperado: 50" & vbCrLf & "Valor obtido:" & Sheets(2).Range("D4").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("F2").Value <> "201") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("F1").Value & " do Produto" & vbCrLf & "Valor esperado: 201" & vbCrLf & "Valor obtido:" & Sheets(2).Range("F2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("F3").Value <> "132") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("F1").Value & " do Produto" & vbCrLf & "Valor esperado: 132" & vbCrLf & "Valor obtido:" & Sheets(2).Range("F3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("F4").Value <> "100") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("F1").Value & " do Produto" & vbCrLf & "Valor esperado: 100" & vbCrLf & "Valor obtido:" & Sheets(2).Range("F4").Value
+            End
+        End If
+        
+        Dim contador As Integer
+        contador = 2
+        Do While (contador < 5)
+            If (Sheets(2).Range("AE" & contador).Value <> "3105.90.90") Then
+                MsgBox "Ocorreu algum erro com " & Sheets(2).Range("AE1").Value & " do Produto" & vbCrLf & "Valor esperado: 3105.90.90" & vbCrLf & "Valor obtido:" & Sheets(2).Range("AE" & contador).Value
+                End
+            End If
+            contador = contador + 1
+        Loop
+        
+        If (CStr(Sheets(2).Range("Z2").Value) <> "259383084577114") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("Z1").Value & " do Produto" & vbCrLf & "Valor esperado: 2,59383084577114" & vbCrLf & "Valor obtido:" & Sheets(2).Range("Z2").Value
+            End
+        End If
+        
+        If (CStr(Sheets(2).Range("Z3").Value) <> "153684848484848") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("Z1").Value & " do Produto" & vbCrLf & "Valor esperado: 15,3684848484848" & vbCrLf & "Valor obtido:" & Sheets(2).Range("Z3").Value
+            End
+        End If
+        
+        If (CStr(Sheets(2).Range("Z4").Value) <> "50") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("Z1").Value & " do Produto" & vbCrLf & "Valor esperado: 50" & vbCrLf & "Valor obtido:" & Sheets(2).Range("Z4").Value
+            End
+        End If
+    '---- fim da verificação de dados dos produtos
+    
+    '---- limpando os dados
+    Sheets(2).Range("A1:Z12").Select
+    Selection.ClearContents
+    Selection.NumberFormat = ""
+    SendKeys "{ESC}" 'saindo da tela de produtos
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    Call LeftClick(325, 65) 'Buscando a tela de Contas a Pagar
+    Call LeftClick(95, 120)
+    Application.Wait (Now + TimeValue("0:00:02"))
+    Call LeftClick(788, 673)
+    Application.Wait (Now + TimeValue("0:00:02"))
+    
+    
+    Application.CutCopyMode = False '--código para tirar a seleção de cópia (ganho na memória da máquina)
+    Call RightClick(717, 431)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    '--- verificação de dados dos Contas a Pagar
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+        
+        If (Sheets(2).Range("E2").Value <> "6431/1") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("E1").Value & " do Contas a Pagar" & vbCrLf & "Valor esperado: 6431/1" & vbCrLf & "Valor obtido:" & Sheets(2).Range("E2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("E3").Value <> "59769/1") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("E1").Value & " do Contas a Pagar" & vbCrLf & "Valor esperado: 59769/1" & vbCrLf & "Valor obtido:" & Sheets(2).Range("E3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("E4").Value <> "59769/2") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("E1").Value & " do Contas a Pagar" & vbCrLf & "Valor esperado: 59769/2" & vbCrLf & "Valor obtido:" & Sheets(2).Range("E4").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("E5").Value <> "31075/1") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("E1").Value & " do Contas a Pagar" & vbCrLf & "Valor esperado: 31075/1" & vbCrLf & "Valor obtido:" & Sheets(2).Range("E5").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("E6").Value <> "62268/1") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("E1").Value & " do Contas a Pagar" & vbCrLf & "Valor esperado: 62268/1" & vbCrLf & "Valor obtido:" & Sheets(2).Range("E6").Value
+            End
+        End If
+
+        If (Sheets(2).Range("G2").Value <> "603") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("G1").Value & " do Contas a Pagar" & vbCrLf & "Valor esperado: 603" & vbCrLf & "Valor obtido:" & Sheets(2).Range("G2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("G3").Value <> "950") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("G1").Value & " do Contas a Pagar" & vbCrLf & "Valor esperado: 950" & vbCrLf & "Valor obtido:" & Sheets(2).Range("G3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("G4").Value <> "950") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("G1").Value & " do Contas a Pagar" & vbCrLf & "Valor esperado: 950" & vbCrLf & "Valor obtido:" & Sheets(2).Range("G4").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("G5").Value <> "27") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("G1").Value & " do Contas a Pagar" & vbCrLf & "Valor esperado: 27" & vbCrLf & "Valor obtido:" & Sheets(2).Range("G5").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("G6").Value <> "5020") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("G1").Value & " do Contas a Pagar" & vbCrLf & "Valor esperado: 5020" & vbCrLf & "Valor obtido:" & Sheets(2).Range("G6").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("P2").Value <> "158") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("P1").Value & " do Contas a Pagar" & vbCrLf & "Valor esperado: 158" & vbCrLf & "Valor obtido:" & Sheets(2).Range("P2").Value
+            End
+        End If
+        
+        contador = 3
+        Do While (contador < 7)
+            If (Sheets(2).Range("P" & contador).Value <> "162") Then
+                MsgBox "Ocorreu algum erro com " & Sheets(2).Range("P1").Value & " do Contas a Pagar" & vbCrLf & "Valor esperado: 162" & vbCrLf & "Valor obtido:" & Sheets(2).Range("P" & contador).Value
+                End
+            End If
+            contador = contador + 1
+        Loop
+        
+        contador = 2
+        Do While (contador < 7)
+            If (Sheets(2).Range("K" & contador).Value <> "Aberto    ") Then
+                MsgBox "Ocorreu algum erro com " & Sheets(2).Range("K1").Value & "do Contas a Pagar" & vbCrLf & "Valor esperado: Aberto" & vbCrLf & "Valor obtido:" & Sheets(2).Range("K" & contador).Value
+                End
+            End If
+            contador = contador + 1
+        Loop
+    '---- fim da verificação de dados do Contas a Pagar
+    
+    '---- limpando os dados
+    Sheets(2).Range("A1:Z12").Select
+    Selection.ClearContents
+    Selection.NumberFormat = ""
+    SendKeys "{ESC}" 'saindo da tela de Contas a Pagar
+    Application.Wait (Now + TimeValue("0:00:01"))
+End Sub
+
+
+
+Sub DAV1()
+    Call LeftClick(206, 66) 'Buscando a tela de DAV
+    Call LeftClick(37, 116)
+    Application.Wait (Now + TimeValue("0:00:01"))
+    Call LeftClick(705, 717)
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys ("{F2}") 'abrindo a tela de inclusão do dav
+    Application.Wait (Now + TimeValue("0:00:02"))
+    SendKeys ("{ENTER 2}")
+    SendKeys ("5102") 'informando o CFOP
+    SendKeys ("{ENTER}")
+    SendKeys ("1") 'informando o cliente
+    SendKeys ("{ENTER 2}")
+    SendKeys ("1") 'informando o funcionário
+    SendKeys ("{ENTER}")
+    SendKeys ("4") 'informando a forma de pagamento
+    SendKeys ("{ENTER 5}")
+    Application.Wait (Now + TimeValue("0:00:02"))
+    
+    '---Incluindo os itens
+        SendKeys ("{F1}") 'alterando o tipo do item (de serviço para produto)
+        SendKeys ("100")
+        SendKeys ("{ENTER}")
+        SendKeys ("1")
+        SendKeys ("{ENTER 5}") 'incluindo o primeiro item
+        Application.Wait (Now + TimeValue("0:00:01"))
+        SendKeys ("50")
+        SendKeys ("{ENTER}")
+        SendKeys ("2")
+        SendKeys ("{ENTER 5}") 'incluindo o segundo item
+        Application.Wait (Now + TimeValue("0:00:01"))
+    '--- Fim da inclusão dos itens
+    
+    SendKeys ("{F5}") 'abrindo a tela de desconto
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys ("30")
+    SendKeys ("{ENTER 3}") 'salvando o desconto
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    Call RightClick(665, 423)
+    SendKeys ("T") 'copiando a grade de produto
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    '--- verificação de dados dos produtos
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+        
+        If (Sheets(2).Range("D2").Value <> "100") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("D1").Value & " do DAV" & vbCrLf & "Valor esperado: 100" & vbCrLf & "Valor obtido:" & Sheets(2).Range("D2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("D3").Value <> "50") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("D1").Value & " do DAV" & vbCrLf & "Valor esperado: 50" & vbCrLf & "Valor obtido:" & Sheets(2).Range("D3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("I2").Value <> "3") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("I1").Value & " do DAV" & vbCrLf & "Valor esperado: 3" & vbCrLf & "Valor obtido:" & Sheets(2).Range("I2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("I3").Value <> "20") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("I1").Value & " do DAV" & vbCrLf & "Valor esperado: 20" & vbCrLf & "Valor obtido:" & Sheets(2).Range("I3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("K2").Value <> "6,92") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("K1").Value & " do DAV" & vbCrLf & "Valor esperado: 6,92" & vbCrLf & "Valor obtido:" & Sheets(2).Range("K2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("K3").Value <> "23,08") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("K1").Value & " do DAV" & vbCrLf & "Valor esperado: 23,08" & vbCrLf & "Valor obtido:" & Sheets(2).Range("K3").Value
+            End
+        End If
+    
+        If (Sheets(2).Range("L2").Value <> "293,08") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("L1").Value & " do DAV" & vbCrLf & "Valor esperado: 293,08" & vbCrLf & "Valor obtido:" & Sheets(2).Range("L2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("L3").Value <> "976,92") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("L1").Value & " do DAV" & vbCrLf & "Valor esperado: 976,92" & vbCrLf & "Valor obtido:" & Sheets(2).Range("L3").Value
+            End
+        End If
+    
+    
+    '---- limpando os dados
+    Sheets(2).Range("A1:Z12").Select
+    Selection.ClearContents
+    Selection.NumberFormat = ""
+    
+    Call LeftClick(496, 850) 'clicando no botão estoque
+    Application.Wait (Now + TimeValue("0:00:01"))
+    '--- Tela de parametros de contabilização
+        SendKeys ("S") 'confirmando a mensagem de CMV
+        Application.Wait (Now + TimeValue("0:00:01"))
+        SendKeys ("{ENTER 2}")
+        Application.Wait (Now + TimeValue("0:00:03"))
+        Call LeftClick(604, 314)
+        SendKeys ("{ENTER 8}")
+        SendKeys ("76") 'informando o campo CMV
+        SendKeys ("{ENTER 2}")
+        Application.Wait (Now + TimeValue("0:00:02"))
+        SendKeys ("{F2}") 'criando um novo histórico
+        Application.Wait (Now + TimeValue("0:00:02"))
+        SendKeys ("Histórico de MVA")
+        SendKeys ("{ENTER 2}")
+        Application.Wait (Now + TimeValue("0:00:02"))
+        SendKeys ("{ENTER}")
+        Application.Wait (Now + TimeValue("0:00:02"))
+        SendKeys ("{ENTER 2}") 'salvando os parametros
+    '--- Fim da tela de parametros de contabilização
+    
+    Application.Wait (Now + TimeValue("0:00:02"))
+    SendKeys ("{ENTER}") 'abrindo a tela de Financeiro
+    Application.Wait (Now + TimeValue("0:00:02"))
+    SendKeys ("{ENTER 2}") 'gerando as parcelas
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys ("{ENTER}") 'salvando o financeiro
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys ("{RIGHT}")
+    SendKeys ("{ENTER}") 'fechando a tela de financeiro (clicando no botão Sair)
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys ("{ESC}") 'saindo da tela de inclusão do DAV
+    
+    Call LeftClick(611, 346) 'clicando na tela de filtro
+    Application.Wait (Now + TimeValue("0:00:01"))
+    Call LeftClick(710, 606) 'clicando no campo Número Inicial
+    SendKeys ("1")
+    SendKeys ("{ENTER 5}")
+    Application.Wait (Now + TimeValue("0:00:02"))
+    
+    Application.CutCopyMode = False '--código para tirar a seleção de cópia (ganho na memória da máquina)
+    Call RightClick(717, 431)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    '--- verificação de dados dos produtos
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+    
+        If (Sheets(2).Range("E2").Value <> "1270") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("E1").Value & " do DAV" & vbCrLf & "Valor esperado: 1270" & vbCrLf & "Valor obtido:" & Sheets(2).Range("E2").Value
+            End
+        End If
+    
+        If (Sheets(2).Range("F2").Value <> "Confirmado") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("F1").Value & " do DAV" & vbCrLf & "Valor esperado: Confirmado" & vbCrLf & "Valor obtido:" & Sheets(2).Range("F2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("G2").Value <> "S") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("G1").Value & " do DAV" & vbCrLf & "Valor esperado: S" & vbCrLf & "Valor obtido:" & Sheets(2).Range("G2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("H2").Value <> "S") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("H1").Value & " do DAV" & vbCrLf & "Valor esperado: S" & vbCrLf & "Valor obtido:" & Sheets(2).Range("H2").Value
+            End
+        End If
+
+    '---- limpando os dados
+    Sheets(2).Range("A1:Z12").Select
+    Selection.ClearContents
+    Selection.NumberFormat = ""
+    SendKeys ("{ESC}") 'saindo da tela de consulta do DAV
+    Application.Wait (Now + TimeValue("0:00:01"))
+End Sub
+
+
+
+Sub DAV2()
+    Call LeftClick(206, 66) 'Buscando a tela de DAV
+    Call LeftClick(37, 116)
+    Application.Wait (Now + TimeValue("0:00:01"))
+    Call LeftClick(705, 717)
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys ("{F2}") 'abrindo a tela de inclusão do dav
+    Application.Wait (Now + TimeValue("0:00:02"))
+    SendKeys ("{ENTER 2}")
+    SendKeys ("5102") 'informando o CFOP
+    SendKeys ("{ENTER}")
+    SendKeys ("1") 'informando o cliente
+    SendKeys ("{ENTER 2}")
+    SendKeys ("1") 'informando o funcionário
+    SendKeys ("{ENTER}")
+    SendKeys ("1") 'informando a forma de pagamento
+    SendKeys ("{ENTER 5}")
+    Application.Wait (Now + TimeValue("0:00:02"))
+    
+    '---Incluindo os itens
+        SendKeys ("{F1}") 'alterando o tipo do item (de serviço para produto)
+        SendKeys ("10")
+        SendKeys ("{ENTER}")
+        SendKeys ("1")
+        SendKeys ("{ENTER 5}") 'incluindo o primeiro item
+        Application.Wait (Now + TimeValue("0:00:01"))
+        SendKeys ("15")
+        SendKeys ("{ENTER}")
+        SendKeys ("2")
+        SendKeys ("{ENTER 5}") 'incluindo o segundo item
+        Application.Wait (Now + TimeValue("0:00:01"))
+        SendKeys ("50")
+        SendKeys ("{ENTER}")
+        SendKeys ("3")
+        SendKeys ("{ENTER 5}") 'abrindo a tela de variação
+        Application.Wait (Now + TimeValue("0:00:01"))
+        SendKeys ("25")
+        SendKeys ("{ENTER}")
+        SendKeys ("25")
+        SendKeys ("{ENTER 3}")
+        Application.Wait (Now + TimeValue("0:00:01"))
+        SendKeys ("{ENTER}") 'incluindo o terceiro item
+        Application.Wait (Now + TimeValue("0:00:01"))
+        SendKeys ("{F1}") 'alterando o tipo do item (de produto para serviço)
+        SendKeys ("1")
+        SendKeys ("{ENTER}")
+        SendKeys ("1")
+        SendKeys ("{ENTER 5}") 'incluindo o quarto item (serviço)
+        Application.Wait (Now + TimeValue("0:00:01"))
+    '--- Fim da inclusão dos itens
+    
+    SendKeys ("{F5}") 'abrindo a tela de desconto
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys ("5,2")
+    SendKeys ("{ENTER 3}") 'salvando o desconto
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    Call RightClick(665, 423)
+    SendKeys ("T") 'copiando a grade de produto
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    '--- verificação de dados dos produtos
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+        
+        If (Sheets(2).Range("D2").Value <> "1") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("D1").Value & " do DAV" & vbCrLf & "Valor esperado: 1" & vbCrLf & "Valor obtido:" & Sheets(2).Range("D2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("D3").Value <> "15") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("D1").Value & " do DAV" & vbCrLf & "Valor esperado: 15" & vbCrLf & "Valor obtido:" & Sheets(2).Range("D3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("D4").Value <> "10") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("D1").Value & " do DAV" & vbCrLf & "Valor esperado: 10" & vbCrLf & "Valor obtido:" & Sheets(2).Range("D4").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("D5").Value <> "50") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("D1").Value & " do DAV" & vbCrLf & "Valor esperado: 50" & vbCrLf & "Valor obtido:" & Sheets(2).Range("D5").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("I2").Value <> "150") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("I1").Value & " do DAV" & vbCrLf & "Valor esperado: 150" & vbCrLf & "Valor obtido:" & Sheets(2).Range("I2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("I3").Value <> "20") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("I1").Value & " do DAV" & vbCrLf & "Valor esperado: 20" & vbCrLf & "Valor obtido:" & Sheets(2).Range("I3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("I4").Value <> "3") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("I1").Value & " do DAV" & vbCrLf & "Valor esperado: 3" & vbCrLf & "Valor obtido:" & Sheets(2).Range("I4").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("I5").Value <> "30") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("I1").Value & " do DAV" & vbCrLf & "Valor esperado: 30" & vbCrLf & "Valor obtido:" & Sheets(2).Range("I5").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("K2").Value <> "0") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("K1").Value & " do DAV" & vbCrLf & "Valor esperado: 0" & vbCrLf & "Valor obtido:" & Sheets(2).Range("K2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("K3").Value <> "0,85") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("K1").Value & " do DAV" & vbCrLf & "Valor esperado: 0,85" & vbCrLf & "Valor obtido:" & Sheets(2).Range("K3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("K4").Value <> "0,08") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("K1").Value & " do DAV" & vbCrLf & "Valor esperado: 0,08" & vbCrLf & "Valor obtido:" & Sheets(2).Range("K4").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("K5").Value <> "4,27") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("K1").Value & " do DAV" & vbCrLf & "Valor esperado: 4,27" & vbCrLf & "Valor obtido:" & Sheets(2).Range("K5").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("L2").Value <> "150") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("L1").Value & " do DAV" & vbCrLf & "Valor esperado: 150" & vbCrLf & "Valor obtido:" & Sheets(2).Range("L2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("L3").Value <> "299,15") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("L1").Value & " do DAV" & vbCrLf & "Valor esperado: 299,15" & vbCrLf & "Valor obtido:" & Sheets(2).Range("L3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("L4").Value <> "29,92") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("L1").Value & " do DAV" & vbCrLf & "Valor esperado: 29,92" & vbCrLf & "Valor obtido:" & Sheets(2).Range("L4").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("L5").Value <> "1495,73") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("L1").Value & " do DAV" & vbCrLf & "Valor esperado: 1495,73" & vbCrLf & "Valor obtido:" & Sheets(2).Range("L5").Value
+            End
+        End If
+    
+    
+    '---- limpando os dados
+    Sheets(2).Range("A1:Z12").Select
+    Selection.ClearContents
+    Selection.NumberFormat = ""
+
+    Application.Wait (Now + TimeValue("0:00:02"))
+    Call LeftClick(496, 850) 'clicando no botão estoque
+    Application.Wait (Now + TimeValue("0:00:02"))
+    SendKeys ("{ENTER}") 'abrindo a tela de Financeiro
+    Application.Wait (Now + TimeValue("0:00:02"))
+    Call LeftClick(500, 836)
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys ("1")
+    SendKeys ("{ENTER}")
+    Call LeftClick(500, 836) 'salvando o financeiro
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys ("{RIGHT 2}")
+    SendKeys ("{ENTER}") 'fechando a tela de financeiro (clicando no botão Sair)
+    Application.Wait (Now + TimeValue("0:00:01"))
+
+    SendKeys ("{ESC}") 'saindo da tela de inclusão do DAV
+
+    Call LeftClick(611, 346) 'clicando na tela de filtro
+    Application.Wait (Now + TimeValue("0:00:01"))
+    Call LeftClick(710, 606) 'clicando no campo Número Inicial
+    SendKeys ("2")
+    SendKeys ("{ENTER 5}")
+    Application.Wait (Now + TimeValue("0:00:02"))
+
+    Application.CutCopyMode = False '--código para tirar a seleção de cópia (ganho na memória da máquina)
+    Call RightClick(717, 431)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+
+    '--- verificação de dados dos produtos
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+
+        If (Sheets(2).Range("E2").Value <> "1974,8") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("E1").Value & " do DAV" & vbCrLf & "Valor esperado: 1974,8" & vbCrLf & "Valor obtido:" & Sheets(2).Range("E2").Value
+            End
+        End If
+
+        If (Sheets(2).Range("F2").Value <> "Confirmado") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("F1").Value & " do DAV" & vbCrLf & "Valor esperado: Confirmado" & vbCrLf & "Valor obtido:" & Sheets(2).Range("F2").Value
+            End
+        End If
+
+        If (Sheets(2).Range("G2").Value <> "S") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("G1").Value & " do DAV" & vbCrLf & "Valor esperado: S" & vbCrLf & "Valor obtido:" & Sheets(2).Range("G2").Value
+            End
+        End If
+
+        If (Sheets(2).Range("H2").Value <> "S") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("H1").Value & " do DAV" & vbCrLf & "Valor esperado: S" & vbCrLf & "Valor obtido:" & Sheets(2).Range("H2").Value
+            End
+        End If
+
+    '---- limpando os dados
+    Sheets(2).Range("A1:Z12").Select
+    Selection.ClearContents
+    Selection.NumberFormat = ""
+    SendKeys ("{ESC}") 'saindo da tela de consulta do DAV
+    Application.Wait (Now + TimeValue("0:00:01"))
+End Sub
+
+
+
+
+Sub VerificacaoDados2()
+    Call LeftClick(90, 68) 'Buscando a tela de Produto
+    Call LeftClick(40, 122)
+    Call LeftClick(776, 610)
+    Application.Wait (Now + TimeValue("0:00:02"))
+    
+    Application.CutCopyMode = False '--código para tirar a seleção de cópia (ganho na memória da máquina)
+    Call RightClick(717, 431)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    '--- verificação de dados dos produtos
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+        
+        If (Sheets(2).Range("D2").Value <> "10") Or (Sheets(2).Range("D3").Value <> "10") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("D1").Value & " do Produto" & vbCrLf & "Valor esperado: 10/10" & vbCrLf & "Valor obtido:" & Sheets(2).Range("D2").Value & Sheets(2).Range("D3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("D4").Value <> "50") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("D1").Value & " do Produto" & vbCrLf & "Valor esperado: 50" & vbCrLf & "Valor obtido:" & Sheets(2).Range("D4").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("F2").Value <> "91") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("F1").Value & " do Produto" & vbCrLf & "Valor esperado: 91" & vbCrLf & "Valor obtido:" & Sheets(2).Range("F2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("F3").Value <> "67") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("F1").Value & " do Produto" & vbCrLf & "Valor esperado: 67" & vbCrLf & "Valor obtido:" & Sheets(2).Range("F3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("F4").Value <> "50") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("F1").Value & " do Produto" & vbCrLf & "Valor esperado: 50" & vbCrLf & "Valor obtido:" & Sheets(2).Range("F4").Value
+            End
+        End If
+        
+        Dim contador As Integer
+        contador = 2
+        Do While (contador < 5)
+            If (Sheets(2).Range("AE" & contador).Value <> "3105.90.90") Then
+                MsgBox "Ocorreu algum erro com " & Sheets(2).Range("AE1").Value & " do Produto" & vbCrLf & "Valor esperado: 3105.90.90" & vbCrLf & "Valor obtido:" & Sheets(2).Range("AE" & contador).Value
+                End
+            End If
+            contador = contador + 1
+        Loop
+        
+        If (CStr(Sheets(2).Range("Z2").Value) <> "259383084577114") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("Z1").Value & " do Produto" & vbCrLf & "Valor esperado: 259383084577114" & vbCrLf & "Valor obtido:" & Sheets(2).Range("Z2").Value
+            End
+        End If
+        
+        If (CStr(Sheets(2).Range("Z3").Value) <> "153684848484848") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("Z1").Value & " do Produto" & vbCrLf & "Valor esperado: 153684848484848" & vbCrLf & "Valor obtido:" & Sheets(2).Range("Z3").Value
+            End
+        End If
+        
+        If (CStr(Sheets(2).Range("Z4").Value) <> "50") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("Z1").Value & " do Produto" & vbCrLf & "Valor esperado: 50" & vbCrLf & "Valor obtido:" & Sheets(2).Range("Z4").Value
+            End
+        End If
+    '---- fim da verificação de dados dos produtos
+    
+    '---- limpando os dados
+    Sheets(2).Range("A1:Z12").Select
+    Selection.ClearContents
+    Selection.NumberFormat = ""
+    SendKeys "{ESC}" 'saindo da tela de produtos
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    Call LeftClick(325, 65) 'Buscando a tela de Contas a Receber
+    Call LeftClick(32, 121)
+    Application.Wait (Now + TimeValue("0:00:02"))
+    Call LeftClick(1167, 612)
+    Call LeftClick(728, 673)
+    Application.Wait (Now + TimeValue("0:00:02"))
+    
+    
+    Application.CutCopyMode = False '--código para tirar a seleção de cópia (ganho na memória da máquina)
+    Call RightClick(717, 431)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    '--- verificação de dados dos Contas a Receber
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+        
+        If (Left(Sheets(2).Range("E2").Value, 5) <> "01/01") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("E1").Value & "do Contas a Receber" & vbCrLf & "Valor esperado: 01/01/2020    (01/01)" & vbCrLf & "Valor obtido:" & Sheets(2).Range("E2").Value
+            End
+        End If
+        
+        If (Left(Sheets(2).Range("E3").Value, 5) <> "02/01") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("E1").Value & "do Contas a Receber" & vbCrLf & "Valor esperado: 02/01/2020     (01/02)" & vbCrLf & "Valor obtido:" & Sheets(2).Range("E3").Value
+            End
+        End If
+        
+        If (Left(Sheets(2).Range("E4").Value, 5) <> "03/01") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("E1").Value & " do Contas a Receber" & vbCrLf & "Valor esperado: 03/01/2020    (01/03)" & vbCrLf & "Valor obtido:" & Sheets(2).Range("E4").Value
+            End
+        End If
+        
+        If (Left(Sheets(2).Range("E5").Value, 5) <> "01/02") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("E1").Value & " do Contas a Receber" & vbCrLf & "Valor esperado: 01/02/2020    (02/01)" & vbCrLf & "Valor obtido:" & Sheets(2).Range("E5").Value
+            End
+        End If
+
+        If (Sheets(2).Range("G2").Value <> "423,34") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("G1").Value & " do Contas a Receber" & vbCrLf & "Valor esperado: 423,34" & vbCrLf & "Valor obtido:" & Sheets(2).Range("G2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("G3").Value <> "423,33") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("G1").Value & " do Contas a Receber" & vbCrLf & "Valor esperado: 423,33" & vbCrLf & "Valor obtido:" & Sheets(2).Range("G3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("G4").Value <> "423,33") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("G1").Value & " do Contas a Receber" & vbCrLf & "Valor esperado: 423,33" & vbCrLf & "Valor obtido:" & Sheets(2).Range("G4").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("G5").Value <> "0") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("G1").Value & " do Contas a Receber" & vbCrLf & "Valor esperado: 0" & vbCrLf & "Valor obtido:" & Sheets(2).Range("G5").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("I5").Value <> "1974,8") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("I1").Value & " do Contas a Receber" & vbCrLf & "Valor esperado: 1974,8" & vbCrLf & "Valor obtido:" & Sheets(2).Range("I5").Value
+            End
+        End If
+        
+        contador = 2
+        Do While (contador < 6)
+            If (Sheets(2).Range("S" & contador).Value <> "157") Then
+                MsgBox "Ocorreu algum erro com " & Sheets(2).Range("S1").Value & " do Contas a Receber" & vbCrLf & "Valor esperado: 157" & vbCrLf & "Valor obtido:" & Sheets(2).Range("S" & contador).Value
+                End
+            End If
+            contador = contador + 1
+        Loop
+        
+        contador = 2
+        Do While (contador < 5)
+            If (Sheets(2).Range("K" & contador).Value <> "Aberto    ") Then
+                MsgBox "Ocorreu algum erro com " & Sheets(2).Range("K1").Value & " do Contas a Receber" & vbCrLf & "Valor esperado: Aberto" & vbCrLf & "Valor obtido:" & Sheets(2).Range("K" & contador).Value
+                End
+            End If
+            contador = contador + 1
+        Loop
+        
+        If (Sheets(2).Range("K5").Value <> "Pago      ") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("K1").Value & " do Contas a Receber" & vbCrLf & "Valor esperado: Pago" & vbCrLf & "Valor obtido:" & Sheets(2).Range("K5").Value
+            End
+        End If
+    '---- fim da verificação de dados do Contas a Receber
+    
+    '---- limpando os dados
+    Sheets(2).Range("A1:Z12").Select
+    Selection.ClearContents
+    Selection.NumberFormat = ""
+    SendKeys "{ESC}" 'saindo da tela de Contas a Pagar
+    Application.Wait (Now + TimeValue("0:00:01"))
+End Sub
+
+
+Sub Orcamento()
+    Call LeftClick(208, 67) 'Buscando a tela de Orçamento
+    Call LeftClick(543, 121)
+    Application.Wait (Now + TimeValue("0:00:01"))
+    Call LeftClick(1116, 588)
+    Call LeftClick(785, 648) 'confirmando o filtro
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys "{F2}" 'abrindo a tela de orçamento
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys "{ENTER 4}"
+    SendKeys "1" 'informando o campo "Funcionario"
+    SendKeys "{ENTER}"
+    SendKeys "{UP 2}" 'informando a modalidade de frete
+    SendKeys "{ENTER}"
+    SendKeys "2"
+    SendKeys "{ENTER 5}"
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    'Incluindo o produto 1
+        SendKeys "4" 'informando a quantidade
+        SendKeys "{ENTER}"
+        SendKeys "{UP}" 'selecionando o Tipo Item = Produto
+        SendKeys "{ENTER}"
+        SendKeys "1" 'informando o produto
+        SendKeys "{ENTER}"
+        SendKeys "7" 'informando o valor unitário
+        SendKeys "{ENTER}"
+        SendKeys "3" 'informando o desconto
+        SendKeys "{ENTER 2}"
+    Application.Wait (Now + TimeValue("0:00:01"))
+    'incluindo o serviço
+        SendKeys "1" 'informando a quantidade
+        SendKeys "{ENTER 2}"
+        SendKeys "{DOWN}" 'informando o Tipo Item = Serviço
+        SendKeys "{ENTER}"
+        SendKeys "1" 'informando o serviço
+        SendKeys "{ENTER}"
+        SendKeys "110" 'informando o unitário
+        SendKeys "{ENTER}"
+        SendKeys "10" 'informando o desconto
+        SendKeys "{ENTER 2}"
+    Application.Wait (Now + TimeValue("0:00:01"))
+    'incluindo o produto não cadastrado
+        SendKeys "5" 'informando a quantidade
+        SendKeys "{ENTER}"
+        SendKeys "{DOWN}" 'informando o Tipo Item = Não cadastrado
+        SendKeys "{ENTER}"
+        SendKeys "#prod nao cadastrado" 'informando a descrição do produto nao cadastrado
+        SendKeys "{ENTER}"
+        SendKeys "10" 'informando o unitário
+        SendKeys "{ENTER 3}"
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    Call RightClick(737, 451)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    '--- verificação de dados dos itens inseridos
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+        
+        If (Sheets(2).Range("B2").Value <> "4") Then 'Quantidade
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("B1").Value & "do Orçamento" & vbCrLf & "Valor esperado: 4" & vbCrLf & "Valor obtido:" & Sheets(2).Range("B2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("B3").Value <> "1") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("B1").Value & "do Orçamento" & vbCrLf & "Valor esperado: 1" & vbCrLf & "Valor obtido:" & Sheets(2).Range("B3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("B4").Value <> "5") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("B1").Value & "do Orçamento" & vbCrLf & "Valor esperado: 5" & vbCrLf & "Valor obtido:" & Sheets(2).Range("B4").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("F2").Value <> "#produto1") Then 'Desrição do item
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("F1").Value & "do Orçamento" & vbCrLf & "Valor esperado: #produto1" & vbCrLf & "Valor obtido:" & Sheets(2).Range("F2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("F3").Value <> "#serviço1") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("F1").Value & "do Orçamento" & vbCrLf & "Valor esperado: #serviço1" & vbCrLf & "Valor obtido:" & Sheets(2).Range("F3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("F4").Value <> "#prod Nao Cadastrado") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("F1").Value & "do Orçamento" & vbCrLf & "Valor esperado: #prod Nao Cadastrado" & vbCrLf & "Valor obtido:" & Sheets(2).Range("F4").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("G2").Value <> "7") Then 'Unitário
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("G1").Value & "do Orçamento" & vbCrLf & "Valor esperado: 7" & vbCrLf & "Valor obtido:" & Sheets(2).Range("G2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("G3").Value <> "110") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("G1").Value & "do Orçamento" & vbCrLf & "Valor esperado: 110" & vbCrLf & "Valor obtido:" & Sheets(2).Range("G3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("G4").Value <> "10") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("G1").Value & "do Orçamento" & vbCrLf & "Valor esperado: 10" & vbCrLf & "Valor obtido:" & Sheets(2).Range("G4").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("H2").Value <> "3") Then 'Desconto
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("H1").Value & "do Orçamento" & vbCrLf & "Valor esperado: 3" & vbCrLf & "Valor obtido:" & Sheets(2).Range("H2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("H3").Value <> "10") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("H1").Value & "do Orçamento" & vbCrLf & "Valor esperado: 10" & vbCrLf & "Valor obtido:" & Sheets(2).Range("H3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("H4").Value <> "0") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("H1").Value & "do Orçamento" & vbCrLf & "Valor esperado: 0" & vbCrLf & "Valor obtido:" & Sheets(2).Range("H4").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("J2").Value <> "25") Then 'Total líquido
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("J1").Value & "do Orçamento" & vbCrLf & "Valor esperado: 25" & vbCrLf & "Valor obtido:" & Sheets(2).Range("J2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("J3").Value <> "100") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("J1").Value & "do Orçamento" & vbCrLf & "Valor esperado: 100" & vbCrLf & "Valor obtido:" & Sheets(2).Range("J3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("J4").Value <> "50") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("J1").Value & "do Orçamento" & vbCrLf & "Valor esperado: 50" & vbCrLf & "Valor obtido:" & Sheets(2).Range("J4").Value
+            End
+        End If
+        
+    '---- fim da verificação de dados dos itens do orçamento
+    
+    '---- limpando os dados
+    Sheets(2).Range("A1:Z12").Select
+    Selection.ClearContents
+    Selection.NumberFormat = ""
+    
+    Call LeftClick(565, 209) 'acessando a guia Forma de Pagamento
+    'Primeira forma de pagamento
+        SendKeys "5" 'Campo Forma de pagamento
+        SendKeys "{ENTER 3}"
+        SendKeys " " 'Check box Forma Combinada
+        SendKeys "{ENTER 2}"
+   'Segunda forma de pagamento
+        Application.Wait (Now + TimeValue("0:00:01"))
+        SendKeys "4" 'Campo Forma de pagamento
+        SendKeys "{ENTER 4}"
+   
+    Application.Wait (Now + TimeValue("0:00:01"))
+    Call RightClick(668, 318)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+   
+    '--- verificação de dados das Formas de Pagamento
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+        
+        If (Sheets(2).Range("F2").Value <> "87,5") Then 'Valor Parcela
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("F1").Value & " do Orçamento" & vbCrLf & "Valor esperado: 87,5" & vbCrLf & "Valor obtido:" & Sheets(2).Range("F2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("F3").Value <> "58,33") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("F1").Value & " do Orçamento" & vbCrLf & "Valor esperado: 58,33" & vbCrLf & "Valor obtido:" & Sheets(2).Range("F3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("G2").Value <> "1") Then 'Combinada
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("G1").Value & " do Orçamento" & vbCrLf & "Valor esperado: 1" & vbCrLf & "Valor obtido:" & Sheets(2).Range("G2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("G3").Value <> "0") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("G1").Value & " do Orçamento" & vbCrLf & "Valor esperado: 0" & vbCrLf & "Valor obtido:" & Sheets(2).Range("G3").Value
+            End
+        End If
+        
+    '---- limpando os dados
+    Sheets(2).Range("A1:Z12").Select
+    Selection.ClearContents
+    Selection.NumberFormat = ""
+    
+    Call LeftClick(504, 839) 'salvando
+    Call LeftClick(688, 838) 'fechando
+    
+    
+    '------------------- a partir daqui é a exportação do Orçamento
+    
+    Application.Wait (Now + TimeValue("0:00:01"))
+    Call LeftClick(1072, 341) 'Gerar DAV
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys "6102" 'Campo CFOP
+    SendKeys "{ENTER}"
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys "^(c)" 'Copiando o campo Forma de Pagamento para verificar
+    Windows("Teste automatizado.xlsm").Activate
+    Sheets("Dados para verificação").Select
+    Range("A1").Select '--selecione a célula onde deseja colar
+    ActiveSheet.Paste '-- código para colar
+    
+        If (Sheets(2).Range("A1").Value <> "5") Then 'Verificando se a forma de pagamento é 5
+            MsgBox "Ocorreu algum erro com a forma de pagamento ao exportar o Orçamento" & vbCrLf & "Valor esperado: 5" & vbCrLf & "Valor obtido:" & Sheets(2).Range("A1").Value
+            End
+        End If
+        
+    Call LeftClick(588, 415) 'Selecionando o produto 1
+    Call LeftClick(588, 435) 'selecionando o serviço 1
+    
+    Call LeftClick(605, 762) 'Clicar no botão "Exportar"
+    
+    Application.Wait (Now + TimeValue("0:00:02"))
+    
+    Call RightClick(665, 423)
+    SendKeys ("T") 'copiando a grade de produto
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    '--- verificação de dados dos produtos no DAV
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+        
+        If (Sheets(2).Range("D2").Value <> "1") Then 'Quantidade
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("D1").Value & " do DAV gerado pelo Orçamento" & vbCrLf & "Valor esperado: 1" & vbCrLf & "Valor obtido:" & Sheets(2).Range("D2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("D3").Value <> "4") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("D1").Value & " do DAV gerado pelo Orçamento" & vbCrLf & "Valor esperado: 4" & vbCrLf & "Valor obtido:" & Sheets(2).Range("D3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("L2").Value <> "100") Then 'total liquido
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("L1").Value & " do DAV gerado pelo Orçamento" & vbCrLf & "Valor esperado: 100" & vbCrLf & "Valor obtido:" & Sheets(2).Range("L2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("L3").Value <> "25") Then
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("L1").Value & " do DAV gerado pelo Orçamento" & vbCrLf & "Valor esperado: 25" & vbCrLf & "Valor obtido:" & Sheets(2).Range("L3").Value
+            End
+        End If
+        
+    '---- limpando os dados
+    Sheets(2).Range("A1:Z12").Select
+    Selection.ClearContents
+    Selection.NumberFormat = ""
+    
+    SendKeys "{ESC}" 'saindo da tela do DAV
+    Application.Wait (Now + TimeValue("0:00:02"))
+        
+        
+    Application.CutCopyMode = False '--código para tirar a seleção de cópia (ganho na memória da máquina)
+    Call RightClick(717, 431)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    '--- verificação de dados do Orçamento
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+        
+    
+        If (Sheets(2).Range("G2").Value <> "175") Then 'Situação
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("G1").Value & "do Orçamento" & vbCrLf & "Valor esperado: 175" & vbCrLf & "Valor obtido:" & Sheets(2).Range("G2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("H2").Value <> "Finalizado  ") Then 'Situação
+            MsgBox "Ocorreu algum erro com " & Sheets(2).Range("H1").Value & "do Orçamento" & vbCrLf & "Valor esperado: Finalizado  " & vbCrLf & "Valor obtido:" & Sheets(2).Range("H2").Value
+            End
+        End If
+        
+    Sheets(2).Range("A1:Z12").Select
+    Selection.ClearContents
+    Selection.NumberFormat = ""
+    
+    SendKeys "{ESC}"
+End Sub
+
+
+Sub Condicional()
+    Call LeftClick(208, 67) 'Buscando a tela de Condicional
+    Call LeftClick(227, 123)
+    Application.Wait (Now + TimeValue("0:00:01"))
+    Call LeftClick(1097, 608)
+    Call LeftClick(791, 682) 'confirmando o filtro
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    SendKeys ("{F2}") 'abrindo a tela de inclusão da condicional
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys "{ENTER 2}"
+    SendKeys "1" 'Informando o funcionario
+    SendKeys "{ENTER}"
+    SendKeys "1" 'Informando a Forma de Pagamento
+    SendKeys "{ENTER}"
+    SendKeys "3" 'Informando o Cliente
+    SendKeys "{ENTER 2}"
+    
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys ("{F2}") 'abrindo a tela de inclusão do tipo de condicional
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys "Tipo Condicional"
+    SendKeys "{ENTER 3}" 'salvando o tipo condicional
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys "{ENTER}" 'selecionando o tipo condicional
+    SendKeys "{ENTER 2}" 'salvando o cabeçalho da condicional
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    'informando o primeiro produto
+        SendKeys "+{TAB}" 'colocando o foco no campo Quantidade
+        SendKeys "9" 'Campo Quantidade
+        SendKeys "{ENTER}"
+        SendKeys "1" 'Campo Produto
+        SendKeys "{ENTER}"
+        Application.Wait (Now + TimeValue("0:00:01"))
+    'informando o segundo produto
+        SendKeys "+{TAB}" 'colocando o foco no campo Quantidade
+        SendKeys "11" 'Campo Quantidade
+        SendKeys "{ENTER}"
+        SendKeys "2" 'Campo Produto
+        SendKeys "{ENTER}"
+        Application.Wait (Now + TimeValue("0:00:01"))
+    'fim da inclusão dos produtos
+    
+    '--- verificação de dados dos itens da Condicional
+    Call CopiarDados(717, 489)
+    
+        Call VerificarDados("9", "G2", "Condicional") 'Quantidade
+        Call VerificarDados("11", "G3", "Condicional")
+        
+        Call VerificarDados("3", "J2", "Condicional") 'unitario
+        Call VerificarDados("20", "J3", "Condicional")
+        
+        Call VerificarDados("27", "K2", "Condicional") 'Total
+        Call VerificarDados("220", "K3", "Condicional")
+        
+        Call VerificarDados("0", "M2", "Condicional") 'Desconto
+        Call VerificarDados("0", "M3", "Condicional")
+        
+        Call VerificarDados("27", "N2", "Condicional") 'Total líquido
+        Call VerificarDados("220", "N3", "Condicional")
+        
+    Call LimparDados 'Fim da verificação
+    
+    Call LeftClick(557, 771) 'salvando
+    Call LeftClick(677, 780) 'fechando a tela
+    
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys ("{F7}") 'abrindo a tela de Detalhamaneto da condicional
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    '--- verificação de dados dos itens da Condicional na tela de condicional
+    Call CopiarDados(717, 357)
+    
+        Call VerificarDados("9", "G2", "Detalhamento da Condicional") 'Pendente
+        Call VerificarDados("11", "G3", "Detalhamento da Condicional")
+        
+    Sheets(2).Range("A1:Z12").Select
+    Selection.ClearContents
+    Selection.NumberFormat = ""
+    
+    Call LeftClick(622, 292) 'Clicando no botão Devolver
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    'devolvendo o primeiro produto
+        SendKeys "4" 'Campo Quantidade
+        SendKeys "{ENTER}"
+        SendKeys "1" 'Campo Produto
+        SendKeys "{ENTER}"
+        Application.Wait (Now + TimeValue("0:00:01"))
+    'devolvendo o segundo produto
+        SendKeys "+{TAB}" 'colocando o foco no campo Quantidade
+        SendKeys "6" 'Campo Quantidade
+        SendKeys "{ENTER}"
+        SendKeys "2" 'Campo Produto
+        SendKeys "{ENTER}"
+        Application.Wait (Now + TimeValue("0:00:01"))
+    'fim da devolução dos produtos
+    
+    SendKeys "{ESC}" 'saindo da tela de devolução
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    
+    'verificando os dados da tela de Detalhamento
+    Call CopiarDados(717, 357)
+    
+        Call VerificarDados("4", "E2", "Detalhamento da Condicional") 'Devolvido
+        Call VerificarDados("6", "E3", "Detalhamento da Condicional")
+        
+        Call VerificarDados("5", "G2", "Detalhamento da Condicional") 'Pendente
+        Call VerificarDados("5", "G3", "Detalhamento da Condicional")
+        
+    Call LimparDados 'Fim da verificação
+    
+    Call LeftClick(729, 294)
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys "7102" 'Campo CFOP
+    SendKeys "{ENTER}"
+    SendKeys "4" 'Campo Forma de Pagamento
+    SendKeys "{ENTER}"
+    Call LeftClick(596, 763) 'Clicando no botão Exportar
+    Application.Wait (Now + TimeValue("0:00:02"))
+    
+    
+    'verificando os dados do DAV Exportado
+    Call CopiarDados(747, 441)
+        Call VerificarDados("5", "D2", "DAV exportado da Condicional") 'Quantidade
+        Call VerificarDados("5", "D3", "Detalhamento da Condicional")
+        
+        Call VerificarDados("15", "L2", "DAV exportado da Condicional") 'Total Líquido
+        Call VerificarDados("100", "L3", "DAV exportado da Condicional")
+        
+    Call LimparDados 'Fim da verificação
+    
+    SendKeys "{ESC}" 'saindo da tela de DAV
+    Application.Wait (Now + TimeValue("0:00:01"))
+
+
+    'verificando os dados da tela de Detalhamento
+    Call CopiarDados(717, 357)
+    
+        Call VerificarDados("4", "E2", "Detalhamento da Condicional") 'Devolvido
+        Call VerificarDados("6", "E3", "Detalhamento da Condicional")
+        
+        Call VerificarDados("5", "F2", "Detalhamento da Condicional") 'Vendida
+        Call VerificarDados("5", "F3", "Detalhamento da Condicional")
+        
+        Call VerificarDados("0", "G2", "Detalhamento da Condicional") 'Pendente
+        Call VerificarDados("0", "G3", "Detalhamento da Condicional")
+        
+    Call LimparDados 'Fim da verificação
+    
+    SendKeys "{ESC}" 'saindo da tela de Detalhamento
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    'Verificando a condicional
+    Call CopiarDados(700, 433)
+    
+        Call VerificarDados("247", "J2", "Condicional") 'Total Líquido
+        
+        Call VerificarDados("Finalizado", "N2", "Condicional") 'Situação
+        
+        Call VerificarDados("A Vista", "S2", "Detalhamento da Condicional") 'Forma de Pagamento
+        
+    Call LimparDados 'Fim da verificação
+    
+    SendKeys "{ESC}" 'saindo da tela da Condicional
+    Application.Wait (Now + TimeValue("0:00:01"))
+End Sub
+
+
+Sub LancamentoCR()
+    Call LeftClick(326, 66)
+    Call LeftClick(35, 122) 'Acessando a tela de Contas a Receber
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    Call LeftClick(1170, 610)
+    SendKeys "{ENTER 2}"
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    SendKeys "{F2}" 'abrindo a tela de CR
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    '------------------- primeiro CR
+        SendKeys "1" 'Cliente
+        SendKeys "{ENTER}"
+        SendKeys "137" 'Conta Contábil
+        SendKeys "{ENTER 5}"
+        SendKeys "500" 'Valor
+        SendKeys "{ENTER}"
+        SendKeys "CRM1" 'N Documento
+        SendKeys "{ENTER}"
+        SendKeys "1" 'Forma de Cobrança
+        SendKeys "{ENTER 5}"
+        Application.Wait (Now + TimeValue("0:00:01"))
+        
+    Call LeftClick(636, 781)
+    SendKeys "{F12}"
+    SendKeys "Crm1" 'filtrando somente o CR incluido
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    'Verificando o CR incluido
+    Call CopiarDados(677, 432)
+    
+        Call VerificarDados("500", "G2", "Contas Receber Avulso") 'Valor Aberto
+        
+        Call VerificarDados("Aberto    ", "K2", "Contas Receber Avulso") 'Situação
+        
+        Call VerificarDados("1", "R2", "Contas Receber Avulso") 'Código Cliente
+        
+    Call LimparDados 'Fim da verificação
+    
+    
+    Call LeftClick(663, 372)
+    Application.Wait (Now + TimeValue("0:00:01"))
+    Call LeftClick(678, 396)
+    
+    '------------------- Segundo CR
+        SendKeys "1" 'Cliente
+        SendKeys "{ENTER 4}"
+        SendKeys "Crm2" 'N Documento
+        SendKeys "{ENTER}"
+        SendKeys "1" 'Forma de Cobrança
+        SendKeys "{ENTER 3}"
+        SendKeys "1000" 'Valor 1 parcela
+        SendKeys "{ENTER 2}"
+        Application.Wait (Now + TimeValue("0:00:01"))
+        SendKeys "{ENTER 4}" 'informando a segunda parcela
+        Application.Wait (Now + TimeValue("0:00:01"))
+        SendKeys "{TAB 5}" 'Acessando a guia lançamentos
+        Application.Wait (Now + TimeValue("0:00:01"))
+        Call LeftClick(654, 474)
+        SendKeys "137" 'Conta contábil
+        SendKeys "{ENTER 3}"
+        Application.Wait (Now + TimeValue("0:00:01"))
+        
+        SendKeys "{TAB 4}"
+        SendKeys "{ENTER}" 'Salvando o CR
+        Call LeftClick(779, 756) 'Saindo da tela de inclusão do CR
+        Application.Wait (Now + TimeValue("0:00:01"))
+        Call LeftClick(779, 756) 'Saindo da tela de inclusão do CR
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    
+    Call LeftClick(636, 781)
+    SendKeys "{F12}"
+    SendKeys "Crm2" 'filtrando somente o CR incluido
+    Application.Wait (Now + TimeValue("0:00:01"))
+    'Verificando o CR incluido
+    Call CopiarDados(677, 432)
+    
+        Call VerificarDados("1000", "G2", "Contas Receber Avulso") 'Valor Aberto
+        Call VerificarDados("1000", "G3", "Contas Receber Avulso")
+        
+        Call VerificarDados("Aberto    ", "K2", "Contas Receber Avulso") 'Situação
+        Call VerificarDados("Aberto    ", "K3", "Contas Receber Avulso")
+        
+        Call VerificarDados("1", "R2", "Contas Receber Avulso") 'Código Cliente
+        Call VerificarDados("1", "R3", "Contas Receber Avulso")
+    Call LimparDados 'Fim da verificação
+    
+    SendKeys "{ESC}"
+    
+End Sub
+
+
+Sub LancamentoCP()
+    Call LeftClick(326, 66)
+    Call LeftClick(91, 115) 'Acessando a tela de Contas a Pagar
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    Call LeftClick(1121, 610)
+    SendKeys "{ENTER 2}"
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    SendKeys "{F2}" 'abrindo a tela de CP
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    '------------------- primeiro CP
+        SendKeys "1" 'Fornecedor
+        SendKeys "{ENTER}"
+        SendKeys "118" 'Conta Contábil
+        SendKeys "{ENTER 4}"
+        SendKeys "500" 'Valor
+        SendKeys "{ENTER}"
+        SendKeys "CPM1" 'N Documento
+        SendKeys "{ENTER 6}"
+        Application.Wait (Now + TimeValue("0:00:01"))
+        
+    Call LeftClick(636, 781)
+    SendKeys "{F12}"
+    SendKeys "Cpm1" 'filtrando somente o Cp incluido
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    'Verificando o Cp incluido
+    Call CopiarDados(677, 432)
+    
+        Call VerificarDados("500", "G2", "Contas Pagar Avulso") 'Valor Aberto
+        
+        Call VerificarDados("Aberto    ", "K2", "Contas Pagar Avulso") 'Situação
+        
+    Call LimparDados 'Fim da verificação
+    
+    Call LeftClick(663, 372)
+    Application.Wait (Now + TimeValue("0:00:01"))
+    Call LeftClick(678, 396)
+    
+    '------------------- Segundo CP
+        SendKeys "1" 'Fornecedor
+        SendKeys "{ENTER 3}"
+        SendKeys "Cpm2" 'N Documento
+        SendKeys "{ENTER 4}"
+        SendKeys "300" 'Valor 1 parcela
+        SendKeys "{ENTER 2}"
+        Application.Wait (Now + TimeValue("0:00:01"))
+        SendKeys "{ENTER 4}" 'informando a segunda parcela
+        Application.Wait (Now + TimeValue("0:00:01"))
+        Call LeftClick(730, 378) 'Acessando a guia lançamentos
+        Application.Wait (Now + TimeValue("0:00:01"))
+        Call LeftClick(654, 414)
+        SendKeys "26" 'Conta contábil
+        SendKeys "{ENTER 3}"
+        Application.Wait (Now + TimeValue("0:00:01"))
+        
+        SendKeys "{TAB 4}"
+        SendKeys "{ENTER}" 'Salvando o CP
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    
+    Call LeftClick(636, 781)
+    SendKeys "{F12}"
+    SendKeys "Cpm2" 'filtrando somente o CP incluido
+    Application.Wait (Now + TimeValue("0:00:01"))
+    'Verificando o CP incluido
+    Call CopiarDados(677, 432)
+    
+        Call VerificarDados("300", "G2", "Contas Pagar Avulso") 'Valor Aberto
+        Call VerificarDados("300", "G3", "Contas Pagar Avulso") 'Valor Aberto
+        
+        Call VerificarDados("Aberto    ", "K2", "Contas Pagar Avulso") 'Situação
+        Call VerificarDados("Aberto    ", "K3", "Contas Pagar Avulso") 'Situação
+    Call LimparDados 'Fim da verificação
+    
+    SendKeys "{ESC}"
+    
+End Sub
+
+
+Sub MovimentoFinanceiro()
+    Call LeftClick(326, 66)
+    Call LeftClick(156, 116) 'Acessando a tela de movimento financeiro
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys "1"
+    SendKeys "{ENTER 4}" 'confirmando o filtro
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    '------ Incluindo o primeiro avulso Movimento Financeiro
+    SendKeys "{F2}"
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys "{ENTER}"
+    SendKeys "137" 'Conta Contabil
+    SendKeys "{ENTER 3}"
+    SendKeys "10000" 'Valor
+    SendKeys "{ENTER}"
+    SendKeys "Lam1" 'N Documento
+    SendKeys "{ENTER 4}"
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    '------ Incluindo o primeiro avulso Movimento Financeiro
+    SendKeys "{F2}"
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys "{DOWN}" 'Alterando o Tipo de Operação
+    SendKeys "{ENTER}"
+    SendKeys "26" 'Conta Contabil
+    SendKeys "{ENTER 3}"
+    SendKeys "50" 'Valor
+    SendKeys "{ENTER}"
+    SendKeys "Lam2" 'N Documento
+    SendKeys "{ENTER 4}"
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    Call CopiarDados(747, 432)
+    
+        Call VerificarDados("1974,8", "E2", "Movimento Financeiro Pagamento do DAV")
+        Call VerificarDados("10000", "E3", "Movimento Financeiro Avulso") 'Valor
+        Call VerificarDados("50", "E4", "Movimento Financeiro Avulso")
+    
+        Call VerificarDados("Crédito", "D2", "Movimento Financeiro Pagamento do DAV")
+        Call VerificarDados("Crédito", "D3", "Movimento Financeiro Avulso") 'Natureza
+        Call VerificarDados("Débito ", "D4", "Movimento Financeiro Avulso")
+        
+    Call LimparDados 'Fim da verificação
+    
+    SendKeys "{ESC}"
+End Sub
+
+
+Sub RecebimentoPagamento()
+    Call LeftClick(326, 66)
+    Call LeftClick(156, 116) 'Acessando a tela de movimento financeiro
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys "2"
+    SendKeys "{ENTER 4}" 'confirmando o filtro
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    SendKeys "{F7}"
+    '------ Tela de Recebimento
+        Application.Wait (Now + TimeValue("0:00:01"))
+        SendKeys "{ENTER 6}"
+        SendKeys "1" 'Informando o Cliente
+        SendKeys "{ENTER 2}"
+        Application.Wait (Now + TimeValue("0:00:01"))
+        Call LeftClick(803, 477)
+        Call LeftClick(803, 477)
+        Call LeftClick(803, 477)
+        SendKeys "{F7}" 'Selecionando todos os registros
+        Application.Wait (Now + TimeValue("0:00:01"))
+        Call LeftClick(504, 833) 'Clicando no botão Salvar
+        Application.Wait (Now + TimeValue("0:00:01"))
+        SendKeys "{ESC}" 'Saindo da tela
+        Application.Wait (Now + TimeValue("0:00:01"))
+        
+    SendKeys "{F8}"
+    '------ Tela de Pagamento
+        Application.Wait (Now + TimeValue("0:00:01"))
+        SendKeys "{ENTER 6}"
+        Application.Wait (Now + TimeValue("0:00:01"))
+        Call LeftClick(803, 477)
+        Call LeftClick(803, 477)
+        Call LeftClick(803, 477)
+        SendKeys "{F7}" 'Selecionando todos os registros
+        Call LeftClick(505, 842)
+        Application.Wait (Now + TimeValue("0:00:01"))
+        SendKeys "{ESC}" 'Saindo da tela
+        Application.Wait (Now + TimeValue("0:00:01"))
+        
+    Call CopiarDados(707, 442)
+    
+        Call VerificarDados("3770", "E2", "Movimento Financeiro na hora de Pagamento/Recebimento") 'Valor
+        Call VerificarDados("1703", "E3", "Movimento Financeiro na hora de Pagamento/Recebimento")
+        Call VerificarDados("6947", "E4", "Movimento Financeiro na hora de Pagamento/Recebimento")
+        
+        Call VerificarDados("Crédito", "D2", "Movimento Financeiro na hora de Pagamento/Recebimento") 'Natureza
+        Call VerificarDados("Débito ", "D3", "Movimento Financeiro na hora de Pagamento/Recebimento")
+        Call VerificarDados("Débito ", "D4", "Movimento Financeiro na hora de Pagamento/Recebimento")
+        
+    Call LimparDados 'Fim da verificação
+    
+    SendKeys "{ESC}" 'Saindo da tela
+End Sub
