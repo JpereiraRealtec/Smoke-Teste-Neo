@@ -1,0 +1,310 @@
+Sub CadastrarPessoa(tipo, documento, tipoIE, CEP, municipio, cliente, fornecedor As Integer, IE, nome As String)
+    Call LeftClick(90, 68) 'Buscando a tela de Pessoas
+    Call LeftClick(287, 129)
+    SendKeys "{F2}" 'cadastrando da pessoa
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    Select Case tipo 'preenchendo o campo 'Tipo pessoa'
+        Case 1
+            SendKeys "{down}"
+        Case 2
+            SendKeys "{down 2}"
+    End Select
+    
+    SendKeys "{ENTER}"
+    SendKeys documento 'preenchendo o campo CPF/CNPJ
+    SendKeys "{ENTER}"
+    
+    Select Case tipoIE 'preenchendo o campo 'Tipo IE'
+        Case 0
+            SendKeys "{UP}"
+        Case 2
+            SendKeys "{down}"
+    End Select
+    
+    SendKeys "{ENTER}"
+    SendKeys IE 'preenchendo o campo 'Inscrição Estadual'
+    SendKeys "{ENTER}"
+    SendKeys nome 'Preenchendo o campo 'Pessoa'
+    SendKeys "{ENTER 2}"
+    SendKeys "1" 'preenchendo o campo 'Logradouro'
+    SendKeys "{ENTER 3}"
+    SendKeys "1" 'preenchendo o campo 'Bairro'
+    SendKeys "{ENTER}"
+    SendKeys CEP 'Preenchendo o 'CEP'
+    SendKeys "{ENTER 2}"
+    SendKeys municipio 'preenchendo o 'Municipio'
+    SendKeys "{ENTER}"
+    
+    If (fornecedor = 1) Then 'caso for um fornecedor, irá marcar o check e preencher o CRT
+        Call LeftClick(1200, 556)
+        Call LeftClick(660, 662)
+        SendKeys "{down 3}"
+        Call LeftClick(662, 620)
+    End If
+    
+    If (cliente = 1) Then 'caso for um cliente, irá marcar o check box e preencher a classificação
+        Call LeftClick(1054, 555)
+        Call LeftClick(815, 285)
+        SendKeys "1"
+        SendKeys "{ENTER}"
+    End If
+        
+    Call LeftClick(601, 757) 'Salvando os dados
+    
+    Application.Wait (Now + TimeValue("0:00:03"))
+    Call LeftClick(694, 778)
+    Call LeftClick(694, 778)
+    SendKeys ("{F11}")
+    SendKeys nome 'filtrando a pessoa cadastrada
+    Application.Wait (Now + TimeValue("0:00:01"))
+    Application.CutCopyMode = False '--código para tirar a seleção de cópia (ganho na memória da máquina)
+    Call RightClick(717, 431)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    SendKeys "{ESC}" 'fechando a tela
+    
+    '--- verificação de dados
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+        
+        If (Sheets(2).Range("A3").Value <> nome) Then
+            MsgBox "Ocorreu algum erro com a descrição da Pessoa" & vbCrLf & "Valor esperado:" & nome & vbCrLf & "Valor obtido:" & Sheets(2).Range("A3").Value
+            End
+        End If
+
+        If (Left(Sheets(2).Range("D3").Value, 2) <> Left(documento, 2)) Then
+            MsgBox "Ocorreu algum erro com o documento da Pessoa" & vbCrLf & "Valor esperado:" & documento & vbCrLf & "Valor obtido:" & Sheets(2).Range("D3").Value
+            End
+        End If
+        
+        If (Left(Sheets(2).Range("T3").Value, 5) <> Left(CEP, 5)) Then
+            MsgBox "Ocorreu algum erro com o CEP da Pessoa" & vbCrLf & "Valor esperado:" & CEP & vbCrLf & "Valor obtido:" & Sheets(2).Range("T3").Value
+            End
+        End If
+
+        If (Right(Sheets(2).Range("D3").Value, 2) <> Right(documento, 2)) Then
+            MsgBox "Ocorreu algum erro com o documento da Pessoa" & vbCrLf & "Valor esperado:" & documento & vbCrLf & "Valor obtido:" & Sheets(2).Range("D3").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("Q3").Value <> "S/n") Then
+            MsgBox "Ocorreu algum erro com o número de endereço da Pessoa" & vbCrLf & "Valor esperado: S/n" & vbCrLf & "Valor obtido:" & Sheets(2).Range("Q3").Value
+            End
+        End If
+    '---- limpando os dados
+        Sheets(2).Range("A1:Z12").Select
+        Selection.ClearContents
+        Selection.NumberFormat = ""
+    
+End Sub
+
+
+Sub CadastrarProduto(unidade, estoque, CST, AliqICMS As Integer, barras, nome, venda, NCM As String)
+    Call LeftClick(90, 68) 'Buscando a tela de Produto
+    Call LeftClick(40, 122)
+    Call LeftClick(776, 610)
+    Application.Wait (Now + TimeValue("0:00:02"))
+    SendKeys "{F2}" 'cadastrando o produto
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys barras 'informando o código de barras
+    SendKeys "{ENTER 2}"
+    SendKeys nome 'informando o nome
+    SendKeys "{ENTER}"
+    SendKeys "1" 'informando a marca
+    SendKeys "{ENTER}"
+    SendKeys unidade 'informando a unidade
+    SendKeys "{ENTER}"
+    SendKeys "1" 'informando o grupo
+    SendKeys "{ENTER}"
+    SendKeys "1" 'informandoo subgrupo
+    SendKeys "{ENTER}"
+    
+    Select Case estoque 'preenchendo o campo 'Controle Estoque'
+        Case 1
+            SendKeys "{down}"
+        Case 2
+            SendKeys "{down 2}"
+    End Select
+  
+    SendKeys "{ENTER 3}"
+    Call LeftClick(855, 546)
+    SendKeys venda 'informando o campo "Venda"
+    
+    Call LeftClick(644, 271) 'acessando a guia fiscal
+    Call LeftClick(607, 380)
+    SendKeys CST 'informando o cst
+    SendKeys "{ENTER}"
+    SendKeys "0"
+    SendKeys "{ENTER}"
+    SendKeys AliqICMS 'informando o campo '% ICMS'
+    SendKeys "{ENTER}"
+    Call LeftClick(614, 502)
+    SendKeys NCM 'informando o ncm
+    SendKeys "{ENTER}"
+    
+    If (CST = 900) Then
+        Call LeftClick(986, 502)
+        SendKeys "0100100"
+    End If
+        
+    
+    Call LeftClick(645, 293)
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys "^C"
+    Application.Wait (Now + TimeValue("0:00:01"))
+    '--- verificação de dados do CST, somente para empresa de Simples
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+        
+        If (Sheets(2).Range("A1").Value <> "99") Then
+            MsgBox "Parece que o campo CST está desabilitado, ou está incorreto" & vbCrLf & "Valor esperado: 99" & vbCrLf & "Valor obtido:" & Sheets(2).Range("A1").Value
+            End
+        End If
+    
+    Call LeftClick(602, 777) 'salvando o produto
+    Application.Wait (Now + TimeValue("0:00:03"))
+    Call LeftClick(602, 777)
+    
+    Application.Wait (Now + TimeValue("0:00:03"))
+    SendKeys ("{F11}")
+    SendKeys nome 'filtrando o produto cadastrada
+    Application.Wait (Now + TimeValue("0:00:01"))
+    Application.CutCopyMode = False '--código para tirar a seleção de cópia (ganho na memória da máquina)
+    Call RightClick(717, 431)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    SendKeys "{ESC}" 'fechando a tela
+    
+    '--- verificação de dados
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+        
+        If (Sheets(2).Range("A2").Value <> nome) Then
+            MsgBox "Ocorreu algum erro com a descrição do Produto" & vbCrLf & "Valor esperado:" & nome & vbCrLf & "Valor obtido:" & Sheets(2).Range("A2").Value
+            End
+        End If
+        
+        If (CStr(Sheets(2).Range("C2").Value) <> barras) Then
+            MsgBox "Ocorreu algum erro com o código de barras do Produto" & vbCrLf & "Valor esperado:" & barras & vbCrLf & "Valor obtido:" & Sheets(2).Range("C2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("D2").Value <> 0) Then
+            MsgBox "O último custo do Produto não iniciou em zero" & vbCrLf & "Valor esperado: 0" & vbCrLf & "Valor obtido:" & Sheets(2).Range("D2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("L2").Value <> CST) Then
+            MsgBox "Ocorreu algum erro com o CST do Produto" & vbCrLf & "Valor esperado: " & CST & vbCrLf & "Valor obtido:" & Sheets(2).Range("C2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("Y2").Value <> 0) Then
+            MsgBox "O estoque calculado do Produto não iniciou em zero" & vbCrLf & "Valor esperado: 0" & vbCrLf & "Valor obtido:" & Sheets(2).Range("Y2").Value
+            End
+        End If
+        
+        If (Sheets(2).Range("Z2").Value <> 0) Then
+            MsgBox "O custo médio do Produto não iniciou em zero" & vbCrLf & "Valor esperado: 0" & vbCrLf & "Valor obtido:" & Sheets(2).Range("Z2").Value
+            End
+        End If
+        
+        If (Left(Sheets(2).Range("AE2").Value, 4) <> Left(NCM, 4)) Then
+            MsgBox "Ocorreu algum erro com o NCM do Produto" & vbCrLf & "Valor esperado:" & NCM & vbCrLf & "Valor obtido:" & Sheets(2).Range("AE2").Value
+            End
+        End If
+        
+        If (Right(Sheets(2).Range("AE2").Value, 2) <> Right(NCM, 2)) Then
+            MsgBox "Ocorreu algum erro com o NCM do Produto" & vbCrLf & "Valor esperado:" & NCM & vbCrLf & "Valor obtido:" & Sheets(2).Range("AE2").Value
+            End
+        End If
+        
+    '---- limpando os dados
+        Sheets(2).Range("A1:AW12").Select
+        Selection.ClearContents
+        Selection.NumberFormat = ""
+
+End Sub
+
+
+Sub CadastrarServiço(unidade As Integer, nome, valor As String)
+    Call LeftClick(90, 68) 'Buscando a tela de Serviço
+    Call LeftClick(162, 123)
+    SendKeys "{F2}" 'abrindo a tela de serviço
+    Application.Wait (Now + TimeValue("0:00:01"))
+    SendKeys nome 'informando a descrição do serviço
+    SendKeys "{ENTER}"
+    SendKeys unidade 'informando o campo "Unid"
+    SendKeys "{ENTER}"
+    SendKeys valor 'informando o campo "Valor"
+    SendKeys "{ENTER 2}"
+    SendKeys "1" 'informando o grupo
+    SendKeys "{ENTER}"
+    SendKeys "1" 'informando o subgrupo
+    SendKeys "{ENTER}"
+    SendKeys "1.0101.20.00" 'informando o NBS
+    SendKeys "{ENTER}"
+    SendKeys "5" 'informando o % ISS
+    SendKeys "{ENTER}"
+    Call LeftClick(649, 673) 'salvando os dados
+    
+    
+    Application.Wait (Now + TimeValue("0:00:03"))
+    Application.CutCopyMode = False '--código para tirar a seleção de cópia (ganho na memória da máquina)
+    Call RightClick(717, 431)
+    SendKeys ("T") 'copia os dados para verificação
+    Application.Wait (Now + TimeValue("0:00:01"))
+    
+    SendKeys "{ESC}" 'fechando a tela
+    
+    
+
+    '--- verificação de dados
+        Windows("Teste automatizado.xlsm").Activate
+        Sheets("Dados para verificação").Select
+        Range("A1").Select '--selecione a célula onde deseja colar
+        ActiveSheet.Paste '-- código para colar
+
+        If (Sheets(2).Range("A2").Value <> nome) Then
+            MsgBox "Ocorreu algum erro com a descrição do Serviço" & vbCrLf & "Valor esperado: " & nome & vbCrLf & "Valor obtido:" & Sheets(2).Range("A2").Value
+            End
+        End If
+        If (Sheets(2).Range("B2").Value <> "1") Then
+            MsgBox "Ocorreu algum erro com o código interno do Serviço" & vbCrLf & "Valor esperado: 1" & vbCrLf & "Valor obtido:" & Sheets(2).Range("B2").Value
+            End
+        End If
+        If (CStr(Sheets(2).Range("C2").Value) <> valor) Then
+            MsgBox "Ocorreu algum erro com o valor do Serviço" & vbCrLf & "Valor esperado: " & valor & vbCrLf & "Valor obtido:" & Sheets(2).Range("C2").Value
+            End
+        End If
+        If (Sheets(2).Range("E2").Value <> "Diversos") Then
+            MsgBox "Ocorreu algum erro com o código interno do Serviço" & vbCrLf & "Valor esperado: 1" & vbCrLf & "Valor obtido:" & Sheets(2).Range("E2").Value
+            End
+        End If
+        If (Sheets(2).Range("F2").Value <> "UN") Then
+            MsgBox "Ocorreu algum erro com a unidadedo Serviço" & vbCrLf & "Valor esperado: UN" & vbCrLf & "Valor obtido:" & Sheets(2).Range("F2").Value
+            End
+        End If
+        If (Sheets(2).Range("H2").Value <> "S") Then
+            MsgBox "Ocorreu algum erro com o Ativo/Inativo do Grupo de Serviço" & vbCrLf & "Valor esperado: S" & vbCrLf & "Valor obtido:" & Sheets(2).Range("H2").Value
+            End
+        End If
+        
+    
+        
+    '---- fim da verificação de dados
+    
+    '---- limpando os dados
+        Sheets(2).Range("A1:Z12").Select
+        Selection.ClearContents
+        Selection.NumberFormat = ""
+End Sub
